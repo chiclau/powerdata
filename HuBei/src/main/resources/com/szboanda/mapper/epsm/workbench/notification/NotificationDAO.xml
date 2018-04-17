@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.workbench.notification.dao.NotificationDAO">
+	<select id="findNotification" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			ID id,
+			TITLE title,
+			CONTENT content,
+			FBR fbr,
+			YHMC yhmc,
+			VALIDDATE validdate,
+			INVALIDDATE invaliddate,
+			FBSJ fbsj,
+			FBFW fbfw
+		FROM
+			HB_GZT_TZGG_TZGGGL gl
+		LEFT JOIN T_ADMIN_RMS_YH yh 
+		ON gl.fbr = yh.YHID
+		<where>
+			<if test="title!=null and title!=''">
+				gl.TITLE LIKE #{title}
+			</if>
+			<if test="yhmc!=null and yhmc!=''">
+				AND yh.YHMC LIKE #{yhmc}
+			</if>
+			<if test="validdate!=null and validdate!=''">
+				AND gl.VALIDDATE = #{validdate}
+			</if>
+			<if test="invaliddate!=null and invaliddate!=''">
+				AND gl.INVALIDDATE = #{invaliddate}
+			</if>
+			<if test="id!=null and id!=''">
+				AND gl.ID = #{id}
+			</if>
+		</where>
+		ORDER BY gl.FBSJ DESC
+	</select>
+	
+	<select id="findAreaXian" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			XZQH xzqh,
+			t.XZQHDMSHI xzqhdm,
+			YHID yhid
+		FROM
+			(
+				SELECT
+					YH.YHID YHID,
+					XZQHDMSHI XZQHDMSHI
+				FROM
+					T_ADMIN_RMS_YH YH
+				LEFT JOIN HB_SJCJ_YH_YHKZB ZB ON YH.YHID = ZB.YHID
+				WHERE
+					YH.YHJB = 9
+					AND XZQHDMSHENG = #{xzqhdmsheng}
+					AND XZQHDMSHI = #{xzqhdmshi}
+					AND XZQHDMXIAN = #{xzqhdmxian}
+			) t
+		LEFT JOIN T_PLATFORM_XZQHDM ON T.XZQHDMSHI = XZQHDM
+	</select>
+	
+	<select id="findAreaShi" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			XZQH xzqh,
+			t.XZQHDMSHI xzqhdm,
+			YHID yhid
+		FROM
+			(
+				SELECT
+					YH.YHID YHID,
+					XZQHDMSHI XZQHDMSHI
+				FROM
+					T_ADMIN_RMS_YH YH
+				LEFT JOIN HB_SJCJ_YH_YHKZB ZB ON YH.YHID = ZB.YHID
+				WHERE
+					YH.YHJB = 3
+					AND XZQHDMSHENG = #{xzqhdmsheng}
+					AND XZQHDMSHI = #{xzqhdmshi}
+					AND XZQHDMXIAN != ''
+			) t
+		LEFT JOIN T_PLATFORM_XZQHDM ON T.XZQHDMSHI = XZQHDM
+	</select>
+	
+	<select id="findAreaSheng" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			XZQH xzqh,
+			t.XZQHDMSHI xzqhdm,
+			YHID yhid
+		FROM
+			(
+				SELECT
+					YH.YHID YHID,
+					XZQHDMSHI XZQHDMSHI
+				FROM
+					T_ADMIN_RMS_YH YH
+				LEFT JOIN HB_SJCJ_YH_YHKZB ZB ON YH.YHID = ZB.YHID
+				WHERE
+					YH.YHJB = 2
+					AND XZQHDMSHENG = #{xzqhdmsheng}
+					AND XZQHDMSHI != ''
+					AND XZQHDMXIAN = ''
+			) t
+		LEFT JOIN T_PLATFORM_XZQHDM ON T.XZQHDMSHI = XZQHDM
+	</select>
+	
+	<select id="findUser" resultType="java.util.Map">
+		SELECT YHID yhid,YHMC yhmc FROM T_ADMIN_RMS_YH
+	</select>
+	
+	<select id="findMyOwenNotification" resultType="java.util.Map">
+		SELECT
+			ID id,
+			TITLE title,
+			CONTENT content,
+			FBR fbr,
+			YHMC yhmc,
+			VALIDDATE validdate,
+			INVALIDDATE invaliddate,
+			FBSJ fbsj,
+			FBFW fbfw
+		FROM
+			HB_GZT_TZGG_TZGGGL gl
+		LEFT JOIN T_ADMIN_RMS_YH yh 
+		ON gl.fbr = yh.YHID
+		<where>
+			FBFW LIKE #{fbfw}
+			<if test="title!=null and title!=''">
+				AND gl.TITLE LIKE #{title}
+			</if>
+			<if test="yhmc!=null and yhmc!=''">
+				AND yh.YHMC LIKE #{yhmc}
+			</if>
+			<if test="validdate!=null and validdate!=''">
+				AND gl.VALIDDATE = #{validdate}
+			</if>
+			<if test="invaliddate!=null and invaliddate!=''">
+				AND gl.INVALIDDATE = #{invaliddate}
+			</if>
+			<if test="id!=null and id!=''">
+				AND gl.ID = #{id}
+			</if>
+		</where>
+		ORDER BY gl.FBSJ DESC
+	</select>
+	
+	<insert id="addNotification" parameterType="java.util.Map">
+		INSERT INTO HB_GZT_TZGG_TZGGGL (
+			ID,
+			TITLE,
+			CONTENT,
+			FBR,
+			VALIDDATE,
+			INVALIDDATE,
+			FBSJ,
+			FBFW
+		)
+		VALUES
+			(
+			#{id},
+			#{title},
+			#{content},
+			#{fbr},
+			#{validdate},
+			#{invaliddate},
+			#{fbsj},
+			#{fbfw}
+		)
+	</insert>
+	
+	<select id="findXzqh" resultType="java.util.Map">
+		SELECT
+			XZQH xzqh
+		FROM
+			T_PLATFORM_XZQHDM
+		WHERE
+			XZQHDM = #{xzqhdm}
+	</select>
+	
+</mapper>

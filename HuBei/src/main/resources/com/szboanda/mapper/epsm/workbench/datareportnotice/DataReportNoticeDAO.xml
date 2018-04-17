@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.workbench.datareportnotice.dao.DataReportNoticeDao">
+	<!-- 查询催报列表 -->
+	<select id="queryDataReportNotice" parameterType="Map" resultType="Map">
+		SELECT 
+			* 
+		FROM 
+			HB_GZT_SJCB
+		<where>
+			<if test="FSCBDX!=null and FSCBDX!=''">
+				FSCBDX = #{FSCBDX}
+			</if>		
+			<if test="BCBDX!=null and BCBDX!=''">
+				AND BCBDX = #{BCBDX}
+			</if>
+			<if test="CSHENGT!=null and CSHENGT!=''">
+				AND CSHENGT like #{CSHENGT}
+			</if>
+			<if test="CBZT!=null and CBZT!=''">
+				AND CBZT like #{CBZT}
+			</if>	
+			<if test="CBNR!=null and CBNR!=''">
+				AND CBNR like #{CBNR}
+			</if>			
+		</where>
+			ORDER BY CREATETIME DESC
+	</select>
+	
+	<!-- 查询单个催报信息 -->
+	<select id="queryOtherNoticeById" resultType="Map" parameterType="String">
+		SELECT 
+			* 
+		FROM 
+			HB_GZT_SJCB
+		<where>
+			<if test="UUID!=null and UUID!=''">
+				AND UUID = #{UUID}
+			</if>			
+		</where>		
+	</select>
+	
+	<!-- 新增数据催报 -->
+	<insert id="insertDataReportNotice" parameterType="Map">
+		INSERT INTO 
+			HB_GZT_SJCB
+			<trim prefix="(" suffixOverrides="," suffix=")">
+            	<if test="UUID != null and UUID != ''">UUID,</if>
+            	<if test="CBZT != null and CBZT != ''">CBZT,</if>
+            	<if test="CBNR != null and CBNR != ''">CBNR,</if>
+            	<if test="FSCBDX != null and FSCBDX != ''">FSCBDX,</if>
+            	<if test="FSCBDXMC != null and FSCBDXMC != ''">FSCBDXMC,</if>
+            	<if test="BCBDX != null and BCBDX != ''">BCBDX,</if>
+            	<if test="BCBDXMC != null and BCBDXMC != ''">BCBDXMC,</if>
+            	<if test="CREATETIME != null and CREATETIME != ''">CREATETIME,</if>
+            	<if test="MODIFYTIME != null and MODIFYTIME != ''">MODIFYTIME,</if>
+            	<if test="SHENG != null and SHENG != ''">SHENG,</if>
+            	<if test="SHI != null and SHI != ''">SHI,</if>
+            	<if test="XIAN != null and XIAN != ''">XIAN,</if>
+            	<if test="QYID != null and QYID != ''">QYID,</if>
+        	</trim>
+        	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+        		<if test="UUID != null">#{UUID},</if>
+        		<if test="CBZT != null">#{CBZT},</if>
+        		<if test="CBNR != null">#{CBNR},</if>
+        		<if test="FSCBDX != null">#{FSCBDX},</if>
+        		<if test="FSCBDXMC != null">#{FSCBDXMC},</if>
+        		<if test="BCBDX != null and BCBDX != ''">#{BCBDX},</if>
+        		<if test="BCBDXMC != null and BCBDXMC != ''">#{BCBDXMC},</if>
+        		<if test="CREATETIME != null and CREATETIME != ''">#{CREATETIME},</if>
+        		<if test="MODIFYTIME != null and MODIFYTIME != ''">#{MODIFYTIME},</if>
+        		<if test="SHENG != null and SHENG != ''">#{SHENG},</if>
+        		<if test="SHI != null and SHI != ''">#{SHI},</if>
+        		<if test="XIAN != null and XIAN != ''">#{XIAN},</if>
+        		<if test="QYID != null and QYID != ''">#{QYID},</if>
+        	</trim>
+	</insert>
+	
+	<!-- 新增批量数据催报 -->
+	<insert id="insertDataReportNoticeBatch" parameterType="List">
+			<foreach collection ="list" item="item" index= "index" separator =";">
+			INSERT INTO 
+				HB_GZT_SJCB		
+			<trim prefix="(" suffixOverrides="," suffix=")">
+            	<if test="item.UUID != null and item.UUID != ''">UUID,</if>
+            	<if test="item.CBZT != null and item.CBZT != ''">CBZT,</if>
+            	<if test="item.CBNR != null and item.CBNR != ''">CBNR,</if>
+            	<if test="item.FSCBDX != null and item.FSCBDX != ''">FSCBDX,</if>
+            	<if test="item.FSCBDXMC != null and item.FSCBDXMC != ''">FSCBDXMC,</if>
+            	<if test="item.BCBDX != null and item.BCBDX != ''">BCBDX,</if>
+            	<if test="item.BCBDXMC != null and item.BCBDXMC != ''">BCBDXMC,</if>
+            	<if test="item.CREATETIME != null and item.CREATETIME != ''">CREATETIME,</if>
+            	<if test="item.MODIFYTIME != null and item.MODIFYTIME != ''">MODIFYTIME,</if>
+            	<if test="item.SHENG != null and item.SHENG != ''">SHENG,</if>
+            	<if test="item.SHI != null and item.SHI != ''">SHI,</if>
+            	<if test="item.XIAN != null and item.XIAN != ''">XIAN,</if>
+            	<if test="item.QYID != null and item.QYID != ''">QYID,</if>
+        	</trim>
+        	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+        		<if test="item.UUID != null">#{item.UUID},</if>
+        		<if test="item.CBZT != null">#{item.CBZT},</if>
+        		<if test="item.CBNR != null">#{item.CBNR},</if>
+        		<if test="item.FSCBDX != null">#{item.FSCBDX},</if>
+        		<if test="item.FSCBDXMC != null">#{item.FSCBDXMC},</if>
+        		<if test="item.BCBDX != null and item.BCBDX != ''">#{item.BCBDX},</if>
+        		<if test="item.BCBDXMC != null and item.BCBDXMC != ''">#{item.BCBDXMC},</if>
+        		<if test="item.CREATETIME != null and item.CREATETIME != ''">#{item.CREATETIME},</if>
+        		<if test="item.MODIFYTIME != null and item.MODIFYTIME != ''">#{item.MODIFYTIME},</if>
+        		<if test="item.SHENG != null and item.SHENG != ''">#{item.SHENG},</if>
+        		<if test="item.SHI != null and item.SHI != ''">#{item.SHI},</if>
+        		<if test="item.XIAN != null and item.XIAN != ''">#{item.XIAN},</if>
+        		<if test="item.QYID != null and item.QYID != ''">#{item.QYID},</if>
+        	</trim>					
+			</foreach>
+	</insert>
+	
+	<!-- 新增批量站内信息提醒 -->
+	<insert id="insertInformationReminderBatch" parameterType="List">
+			<foreach collection ="list" item="item" index= "index" separator =";">
+			INSERT INTO 
+				HB_GZT_XXTX_ZN		
+			<trim prefix="(" suffixOverrides="," suffix=")">
+            	<if test="item.ID != null and item.ID != ''">ID,</if>
+            	<if test="item.BT != null and item.BT != ''">BT,</if>
+            	<if test="item.FLD_LINK != null and item.FLD_LINK != ''">FLD_LINK,</if>
+            	<if test="item.SENDER != null and item.SENDER != ''">SENDER,</if>
+            	<if test="item.JB != null and item.JB != ''">JB,</if>
+            	<if test="item.FL != null and item.FL != ''">FL,</if>
+            	<if test="item.RECEIVER != null and item.RECEIVER != ''">RECEIVER,</if>
+            	<if test="item.SENDTIME != null and item.SENDTIME != ''">SENDTIME,</if>
+            	<if test="item.STATUS != null and item.STATUS != ''">STATUS,</if>
+            	<if test="item.SHENG != null and item.SHENG != ''">SHENG,</if>
+            	<if test="item.SHI != null and item.SHI != ''">SHI,</if>
+            	<if test="item.XIAN != null and item.XIAN != ''">XIAN,</if>
+            	<if test="item.QYID != null and item.QYID != ''">QYBH,</if>
+            	<if test="item.NR != null and item.NR != ''">NR,</if>
+        	</trim>
+        	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+            	<if test="item.ID != null and item.ID != ''">#{item.ID},</if>
+            	<if test="item.BT != null and item.BT != ''">#{item.BT},</if>
+            	<if test="item.FLD_LINK != null and item.FLD_LINK != ''">#{item.FLD_LINK},</if>
+            	<if test="item.SENDER != null and item.SENDER != ''">#{item.SENDER},</if>
+            	<if test="item.JB != null and item.JB != ''">#{item.JB},</if>
+            	<if test="item.FL != null and item.FL != ''">#{item.FL},</if>
+            	<if test="item.RECEIVER != null and item.RECEIVER != ''">#{item.RECEIVER},</if>
+            	<if test="item.SENDTIME != null and item.SENDTIME != ''">#{item.SENDTIME},</if>
+            	<if test="item.STATUS != null and item.STATUS != ''">#{item.STATUS},</if>
+            	<if test="item.SHENG != null and item.SHENG != ''">#{item.SHENG},</if>
+            	<if test="item.SHI != null and item.SHI != ''">#{item.SHI},</if>
+            	<if test="item.XIAN != null and item.XIAN != ''">#{item.XIAN},</if>
+            	<if test="item.QYID != null and item.QYID != ''">#{item.QYID},</if>
+            	<if test="item.NR != null and item.NR != ''">#{item.NR},</if>           	    
+        	</trim>					
+			</foreach>
+	</insert>		
+		
+	<!-- 查询当前用户 可以催报的用户 -->
+	<select id="queryDataReportNoticeUser" parameterType="Map" resultType="Map">
+		<choose><!-- 当前用户为省级 或者 市级-->
+			<when test="queryType == 1 or queryType == 2">
+				SELECT
+					YH.YHID,
+					YH.YHMC,
+					YHKZB.YHCZ,
+					YH.YHSJ,
+					YHKZB.DZYX,
+					YHKZB.ZHJGMC,
+					YHKZB.XZQHDMSHENG,
+					YHKZB.XZQHDMSHI,
+					YHKZB.XZQHDMXIAN,
+					SHENG.XZQH SHENG,
+					SHI.XZQH SHI,
+					XIAN.XZQH XIAN,
+					YH.YHJB
+				FROM
+					T_ADMIN_RMS_YH YH
+					INNER JOIN 
+						HB_SJCJ_YH_YHKZB YHKZB 
+					ON 
+						YH.YHID = YHKZB.YHID And YH.SFYX = '1'
+					LEFT JOIN
+						T_PLATFORM_XZQHDM SHENG
+					ON	
+						YHKZB.XZQHDMSHENG=SHENG.XZQHDM
+					LEFT JOIN
+						T_PLATFORM_XZQHDM SHI
+					ON	
+						YHKZB.XZQHDMSHI=SHI.XZQHDM
+					LEFT JOIN
+						T_PLATFORM_XZQHDM XIAN
+					ON	
+						YHKZB.XZQHDMXIAN=XIAN.XZQHDM								
+			</when><!-- 当前用户为县级  查企业-->
+			<when test="queryType == 3">
+				SELECT
+					YH.YHID,
+					YH.YHMC,
+					YH.YHSJ,
+					YHKZB.DZYX,
+					YHKZB.ZHJGMC,
+					YHKZB.XZQHDMSHENG,
+					YHKZB.XZQHDMSHI,
+					YHKZB.XZQHDMXIAN,
+					JBXX.ID QYID,
+					JBXX.QYMC,
+					YH.YHJB
+				FROM
+						HB_SJCJ_QY_JBXX JBXX
+					INNER JOIN
+						HB_SJCJ_YH_YHKZB YHKZB 
+					ON 
+						YHKZB.QYID=JBXX.ID	
+					INNER JOIN 
+						T_ADMIN_RMS_YH YH
+					ON 
+						YH.YHID = YHKZB.YHID And YH.SFYX = '1'
+
+			</when>		
+		</choose>
+		<where>
+			<if test="YHJB!= null and YHJB != ''">
+				YH.YHJB=#{YHJB}
+			</if>
+			<if test="XZQHDMSHENG!= null and XZQHDMSHENG != ''">
+				AND YHKZB.XZQHDMSHENG=#{XZQHDMSHENG}
+			</if>
+			<if test="XZQHDMSHI != null and XZQHDMSHI != ''">
+				AND YHKZB.XZQHDMSHI=#{XZQHDMSHI}
+			</if>
+			<if test="XZQHDMXIAN != null and XZQHDMXIAN != ''">
+				AND YHKZB.XZQHDMXIAN=#{XZQHDMXIAN}
+			</if>
+			<if test="QYMC != null and QYMC != ''">
+				AND JBXX.QYMC like #{QYMC}
+			</if>
+			<if test="YHMC != null and YHMC != ''">
+				AND YH.YHMC like #{YHMC}
+			</if>
+			ORDER BY YH.YHMC								
+		</where>
+		
+	</select>
+</mapper>

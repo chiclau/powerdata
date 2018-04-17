@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.emissionstandard.quotaquery.dao.QuotaQueryDAO">
+	<!-- 查询指标列表 -->
+	<select id="queryQuota" parameterType="Map" resultType="Map">
+		SELECT 
+			ZBMC,
+			ZBBH,
+			QZDW,
+			ZBLX,
+			CODE.C_NAME ZBLX_NAME,
+			CODE1.C_NAME QZDW_NAME
+		FROM 
+			HB_BZ_XMZB  XMZB
+   		LEFT JOIN 
+   			EAP_SYS_UTIL_CODE CODE 
+   		ON 
+   			CODE.PARENT = 'DEVICE' 
+   		AND (XMZB.ZBLX=CODE.PARAM0 
+			OR XMZB.ZBLX2=CODE.PARAM0 
+			OR XMZB.ZBLX3=CODE.PARAM0
+			OR XMZB.ZBLX4=CODE.PARAM0 
+			OR XMZB.ZBLX5=CODE.PARAM0 
+			OR XMZB.ZBLX6=CODE.PARAM0
+			OR XMZB.ZBLX7=CODE.PARAM0 
+	        OR XMZB.ZBLX8=CODE.PARAM0 
+	        OR XMZB.ZBLX9=CODE.PARAM0
+	        OR XMZB.ZBLX10=CODE.PARAM0
+			)  			
+		LEFT JOIN 
+   			EAP_SYS_UTIL_CODE CODE1 
+   		ON 
+   			XMZB.QZDW=CODE1.PARAM0 
+   		AND 
+   			CODE1.PARENT = 'DAN_WEI'   			   			
+		<where>
+			<if test="searchTxt != null and searchTxt != ''">
+				XMZB.ZBMC like  #{searchTxt}
+				or
+				XMZB.ZBBH like #{searchTxt}
+			</if>
+			<if test="zblx != null and zblx != ''">
+				AND CODE.PARAM0 like #{zblx}
+			</if>
+		</where>
+			ORDER BY XMZB.ZBMC
+	</select>
+</mapper>

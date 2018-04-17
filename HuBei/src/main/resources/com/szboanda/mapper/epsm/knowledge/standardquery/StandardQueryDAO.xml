@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.knowledge.standardquery.dao.StandardQueryDAO">
+	
+	<sql id="allColumns">
+		BZ_ID,BZMC,BZBH,BZLX,YYHYDM,YYFW,BZFL,BZFL1,BZFL2,BZFL3,BZFL4,SSSJ,FZSJ,BZ
+	</sql>
+	
+	<!-- 查询标准列表 -->
+	<select id="queryStandard" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT BZ_ID,BZMC,BZBH,BZLX,C.C_NAME BZLXMC,BZFL,BZFL1,BZFL2,BZFL3,BZFL4,SSSJ FROM  
+		(SELECT 
+			BZ.BZ_ID,BZMC,BZBH,BZLX,BZFL,BZFL1,BZFL2,BZFL3,BZFL4,SSSJ
+		FROM  HB_BZ_JBXX BZ
+		LEFT JOIN HB_BZ_JCXM JCXM ON  JCXM.BZ_ID=BZ.BZ_ID 
+		LEFT JOIN HB_BZ_XMZB ZB ON ZB.ZB_ID=JCXM.ZB_ID 
+		<where>
+			<if test="jcxm!=null and jcxm!=''">
+				ZB.ZBMC LIKE  '%'+ #{jcxm} +'%'
+			</if>
+		</where>
+		GROUP BY BZ.BZ_ID,BZMC,BZBH,BZLX,BZFL,BZFL1,BZFL2,BZFL3,BZFL4,SSSJ) AS BZ
+		INNER JOIN EAP_SYS_UTIL_CODE C  ON BZ.BZLX=C.PARAM0 AND C.PARENT='D_TYPE' 
+		<where>
+			<if test="bzmc!=null and bzmc!=''">
+				BZ.BZMC LIKE  '%'+ #{bzmc} +'%'
+			</if>
+			<if test="bzbh!=null and bzbh!=''">
+				AND BZ.BZBH LIKE '%'+ #{bzbh} +'%'
+			</if>
+			<if test="bzlx!=null and bzlx!=''">
+				AND BZ.BZLX LIKE '%'+ #{bzlx} +'%'
+			</if>
+			<if test="bzfl!=null and bzfl!=''">
+				AND (BZ.BZFL = #{bzfl} OR BZ.BZFL1=#{bzfl} OR BZ.BZFL2=#{bzfl} OR BZ.BZFL3=#{bzfl} OR BZ.BZFL4=#{bzfl})
+			</if>
+		</where>
+			ORDER BY BZ.BZLX 
+	</select>
+	
+	<!-- 查询标准详情 -->
+	<select id="queryStandarDetail" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT BZ_ID,BZMC,BZBH,C.C_NAME BZLXMC,BZLX,YYHYDM,YYFW,BZFL,BZFL1,BZFL2,BZFL3,BZFL4,SSSJ,FZSJ,BZ 
+		FROM  HB_BZ_JBXX BZ 
+		INNER JOIN EAP_SYS_UTIL_CODE C  ON BZ.BZLX=C.PARAM0 AND C.PARENT='D_TYPE' 
+		WHERE BZ.BZ_ID = #{bzid}
+	</select>
+	
+</mapper>

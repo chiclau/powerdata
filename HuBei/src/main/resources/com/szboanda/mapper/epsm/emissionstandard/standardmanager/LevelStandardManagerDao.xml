@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.emissionstandard.standardmanager.dao.LevelStandardManagerDAO">
+	<!-- 查询标准信息列表 -->
+	<select id="queryStandard" parameterType="Map" resultType="Map">
+		SELECT 
+			JBXX.*,
+			CODE.C_NAME BZFL_NAME,
+			CODE1.C_NAME BZLX_NAME,
+			CODECLASS.C_NAME YYHYDM_NAME
+		FROM 
+			HB_BZ_JBXX JBXX 		
+		LEFT JOIN 
+			EAP_SYS_UTIL_CODE CODE 
+		ON 
+			JBXX.BZFL=CODE.PARAM0 
+		AND 
+			CODE.PARENT = 'DEVICE_TYPE' 
+		AND 
+			CODE.VALID='1'
+   		LEFT JOIN 
+   			EAP_SYS_UTIL_CODE CODE1 
+   		ON 
+   			JBXX.BZLX=CODE1.PARAM0 
+   		AND 
+   			CODE1.PARENT = 'D_TYPE'
+   		LEFT JOIN 
+   			EAP_SYS_UTIL_CODECLASS CODECLASS 
+   		ON 
+   			JBXX.YYHYDM=CODECLASS.C_ID
+			<where>
+				<if test="searchTxt != null and searchTxt != ''">
+					JBXX.BZMC like #{searchTxt}
+					or
+					JBXX.BZBH like #{searchTxt}
+				</if>
+				<if test="bzfl != null and bzfl != ''">
+					AND JBXX.BZFL like #{bzfl}
+				</if>
+			</where>
+			ORDER BY JBXX.BZMC		
+	</select>
+	
+	<!-- 查询单个标准信息 -->
+	<select id="queryStandardById" parameterType="String"  resultType="Map">
+		SELECT 
+			JBXX.*,
+			CODE.C_NAME BZFL_NAME,
+			CODE1.C_NAME BZLX_NAME,
+			CODECLASS.C_NAME YYHYDM_NAME
+		FROM 
+			HB_BZ_JBXX JBXX 		
+		LEFT JOIN 
+			EAP_SYS_UTIL_CODE CODE 
+		ON 
+			JBXX.BZFL=CODE.PARAM0 
+		AND 
+			CODE.PARENT = 'DEVICE_TYPE' 
+		AND 
+			CODE.VALID='1'
+   		LEFT JOIN 
+   			EAP_SYS_UTIL_CODE CODE1 
+   		ON 
+   			JBXX.BZLX=CODE1.PARAM0 
+   		AND 
+   			CODE1.PARENT = 'D_TYPE'
+   		LEFT JOIN 
+   			EAP_SYS_UTIL_CODECLASS CODECLASS 
+   		ON 
+   			JBXX.YYHYDM=CODECLASS.C_ID
+			<where>
+				<if test="BZ_ID != null and BZ_ID != ''">
+					JBXX.BZ_ID =  #{BZ_ID} 
+				</if>
+			</where>
+	</select>
+	
+	<!-- 新增标准信息 -->
+	<insert id="insertStandard" parameterType="Map">	
+			INSERT INTO 
+			HB_BZ_JBXX
+			<trim prefix="(" suffixOverrides="," suffix=")">
+            	<if test="BZ_ID != null and BZ_ID != ''">BZ_ID,</if>
+            	<if test="BZMC != null and BZMC != ''">BZMC,</if>
+            	<if test="BZBH != null and BZBH != ''">BZBH,</if>
+            	<if test="BZLX != null and BZLX != ''">BZLX,</if>
+            	<if test="YYHYDM != null and YYHYDM != ''">YYHYDM,</if>
+            	<if test="BZFL != null and BZFL != ''">BZFL,</if>
+            	<if test="SSSJ != null and SSSJ != ''">SSSJ,</if>
+            	<if test="FZSJ != null and FZSJ != ''">FZSJ,</if>
+            	<if test="YYFW != null and YYFW != ''">YYFW,</if>
+            	<if test="BZ != null and BZ != ''">BZ,</if>
+        	</trim>
+        	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+        		<if test="BZ_ID != null">#{BZ_ID},</if>
+        		<if test="BZMC != null">#{BZMC},</if>
+        		<if test="BZBH != null">#{BZBH},</if>
+        		<if test="BZLX != null">#{BZLX},</if>
+        		<if test="YYHYDM != null">#{YYHYDM},</if>
+        		<if test="BZFL != null and BZFL != ''">#{BZFL},</if>
+        		<if test="SSSJ != null and SSSJ != ''">#{SSSJ},</if>
+        		<if test="FZSJ != null and FZSJ != ''">#{FZSJ},</if>
+        		<if test="YYFW != null and YYFW != ''">#{YYFW},</if>
+        		<if test="BZ != null and BZ != ''">#{BZ},</if>
+        	</trim>
+	</insert>
+	
+	<!-- 修改标准信息 -->
+	<update id="updateStandard" parameterType="Map">
+			UPDATE HB_BZ_JBXX 
+			<set>
+				<if test="BZMC != null and BZMC != ''">BZMC = #{BZMC},</if>
+				<if test="BZBH != null and BZBH != ''">BZBH = #{BZBH},</if>
+				<if test="BZLX != null and BZLX != ''">BZLX = #{BZLX},</if>
+				<if test="YYHYDM != null and YYHYDM != ''">YYHYDM = #{YYHYDM},</if>
+				<if test="BZFL != null and BZFL != ''">BZFL = #{BZFL},</if>
+				<if test="SSSJ != null and SSSJ != ''">SSSJ = #{SSSJ},</if>
+				<if test="FZSJ != null and FZSJ != ''">FZSJ = #{FZSJ},</if>
+				<if test="YYFW != null and YYFW != ''">YYFW = #{YYFW},</if>
+				<if test="BZ != null and BZ != ''">BZ = #{BZ},</if>
+			</set>
+			<where>
+				AND BZ_ID = #{BZ_ID}
+			</where>	
+	</update>
+	
+	<!-- 删除标准信息  -->
+	<delete id="deleteStandard" parameterType="String">
+			DELETE FROM 
+			HB_BZ_JBXX 
+			<where>
+				AND BZ_ID = #{BZ_ID}
+			</where>
+	</delete>
+</mapper>

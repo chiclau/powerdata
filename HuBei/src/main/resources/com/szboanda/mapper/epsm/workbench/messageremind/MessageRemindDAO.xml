@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.workbench.messageremind.dao.MessageRemindDAO">
+	<select id="findMessageRemind" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			ID id,
+			BT bt,
+			NR nr,
+			yh.YHMC sender,
+			SENDTIME sendtime
+		FROM
+			HB_GZT_XXTX_ZN zn
+		LEFT JOIN T_ADMIN_RMS_YH yh ON yh.YHID = zn.SENDER
+		<where>
+			RECEIVER = #{receiver}
+			<if test="bt!=null and bt!=''">
+				AND BT LIKE #{bt}
+			</if>
+			<if test="sender!=null and sender!=''">
+				AND yh.YHMC LIKE #{sender}
+			</if>
+			<if test="nr!=null and nr!=''">
+				AND NR LIKE #{nr}
+			</if>
+			<if test="sendtimestart!=null and sendtimeend!=''">
+				<![CDATA[AND SENDTIME > #{sendtimestart}]]>
+			</if>
+			<if test="sendtimeend!=null and sendtimeend!=''">
+				<![CDATA[AND SENDTIME < #{sendtimeend}]]>
+			</if>
+		</where>
+		ORDER BY SENDTIME DESC
+	</select>
+	
+	<update id="delMessageRemind" parameterType="java.util.Map">	
+		DELETE FROM HB_GZT_XXTX_ZN
+		WHERE
+			ID IN
+		<foreach collection="ids" item="id" open="(" close=")"
+			separator=",">
+			#{id}
+		</foreach>
+	</update>
+	
+	<select id="findUser" resultType="java.util.Map">
+		SELECT YHID yhid,YHMC yhmc FROM T_ADMIN_RMS_YH
+	</select>
+</mapper>

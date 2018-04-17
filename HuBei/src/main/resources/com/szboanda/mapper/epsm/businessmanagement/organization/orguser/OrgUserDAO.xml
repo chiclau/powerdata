@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.businessmanagement.organization.orguser.dao.OrgUserDAO">
+	<!-- 查询监测机构用户 -->
+	<select id="findOrgUser" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			RYGL.JCJGRY_ID,
+			RYGL.JCJGRY_JGBH,
+			RYGL.JCJGRY_NAME,
+			RYGL.JCJGRY_SEX,
+			RYGL.JCJGRY_CSNY,
+			RYGL.JCJGRY_ZZMM,
+			RYGL.JCJGRY_MZ,
+			RYGL.JCJGRY_SFSWRC,
+			RYGL.JCJGRY_ZGXL,
+			RYGL.JCJGRY_ZY,
+			RYGL.JCJGRY_ZC,
+			RYGL.JCJGRY_SZBM,
+			RYGL.JCJGRY_CSJSLYNX,
+			RYGL.JCJGRY_ZW,
+			RYGL.JCJGRY_CSJSLY,
+			RYGL.JCJGRY_BGWGZNX,
+			RYGL.JCJGRY_JCJGBMBH,
+			RYGL.JCJGRY_SBBH,
+			RYGL.JCJGRY_SFGLY,
+			RYGL.JCJGRY_SFBMGLY
+		FROM
+			HB_YWGL_JCJG_RYGL RYGL,
+			HB_YWGL_JCJG_JGGL JGGL
+		WHERE
+			RYGL.JCJGRY_JGBH = JGGL.JCJG_ID
+			AND JCJG_SHENG = #{JCJG_SHENG}
+			AND JCJG_SHI = #{JCJG_SHI}
+			AND JCJG_XIAN = #{JCJG_XIAN}
+			<if test="JCJGRY_NAME != null and JCJGRY_NAME != ''">
+				AND RYGL.JCJGRY_NAME LIKE #{JCJGRY_NAME}
+			</if>
+			<if test="JCJGRY_SEX != null and JCJGRY_SEX != ''">
+				AND RYGL.JCJGRY_SEX = #{JCJGRY_SEX}
+			</if>
+			<if test="JCJGRY_JCJGBMBH != null and JCJGRY_JCJGBMBH != ''">
+				AND RYGL.JCJGRY_JCJGBMBH = #{JCJGRY_JCJGBMBH}
+			</if>
+			<if test="JCJGRY_CSNY != null and JCJGRY_CSNY != ''">
+				AND RYGL.JCJGRY_CSNY = #{JCJGRY_CSNY}
+			</if>
+		ORDER BY
+			RYGL.JCJGRY_ID
+	</select>
+	
+	<!-- 根据ID查询监测机构用户 -->
+	<select id="getOrgUserById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			RYGL.JCJGRY_ID,
+			RYGL.JCJGRY_JGBH,
+			RYGL.JCJGRY_NAME,
+			RYGL.JCJGRY_SEX,
+			RYGL.JCJGRY_CSNY,
+			RYGL.JCJGRY_ZZMM,
+			RYGL.JCJGRY_MZ,
+			RYGL.JCJGRY_SFSWRC,
+			RYGL.JCJGRY_ZGXL,
+			RYGL.JCJGRY_ZY,
+			RYGL.JCJGRY_ZC,
+			RYGL.JCJGRY_SZBM,
+			RYGL.JCJGRY_CSJSLYNX,
+			RYGL.JCJGRY_ZW,
+			RYGL.JCJGRY_CSJSLY,
+			RYGL.JCJGRY_BGWGZNX,
+			RYGL.JCJGRY_JCJGBMBH,
+			RYGL.JCJGRY_SBBH,
+			RYGL.JCJGRY_SFGLY,
+			RYGL.JCJGRY_SFBMGLY
+		FROM
+			HB_YWGL_JCJG_RYGL RYGL
+		WHERE 
+			RYGL.JCJGRY_ID = #{JCJGRY_ID}
+	</select>
+	
+	<!-- 添加监测机构用户 -->
+	<insert id="addOrgUser" parameterType="java.util.Map">
+		INSERT INTO HB_YWGL_JCJG_RYGL 
+		(
+			JCJGRY_ID,
+			JCJGRY_JGBH,
+			JCJGRY_NAME,
+			JCJGRY_SEX,
+			JCJGRY_CSNY,
+			JCJGRY_ZZMM,
+			JCJGRY_MZ,
+			JCJGRY_SFSWRC,
+			JCJGRY_ZGXL,
+			JCJGRY_ZY,
+			JCJGRY_ZC,
+			JCJGRY_SZBM,
+			JCJGRY_CSJSLYNX,
+			JCJGRY_ZW,
+			JCJGRY_CSJSLY,
+			JCJGRY_BGWGZNX,
+			JCJGRY_JCJGBMBH,
+			JCJGRY_SBBH,
+			JCJGRY_SFGLY,
+			JCJGRY_SFBMGLY
+		)
+		VALUES
+		(
+			#{JCJGRY_ID},
+			#{JCJGRY_JGBH},
+			#{JCJGRY_NAME},
+			#{JCJGRY_SEX},
+			#{JCJGRY_CSNY},
+			#{JCJGRY_ZZMM},
+			#{JCJGRY_MZ},
+			#{JCJGRY_SFSWRC},
+			#{JCJGRY_ZGXL},
+			#{JCJGRY_ZY},
+			#{JCJGRY_ZC},
+			#{JCJGRY_SZBM},
+			#{JCJGRY_CSJSLYNX},
+			#{JCJGRY_ZW},
+			#{JCJGRY_CSJSLY},
+			#{JCJGRY_BGWGZNX},
+			#{JCJGRY_JCJGBMBH},
+			#{JCJGRY_SBBH},
+			#{JCJGRY_SFGLY},
+			#{JCJGRY_SFBMGLY}
+		)
+	</insert>
+	
+	<!-- 更新监测机构用户 -->
+	<update id="updateOrgUser" parameterType="java.util.Map">
+		UPDATE HB_YWGL_JCJG_RYGL
+		<set>
+			<if test="JCJGRY_JGBH != null">
+				JCJGRY_JGBH = #{JCJGRY_JGBH},
+			</if>
+			<if test="JCJGRY_NAME != null">
+				JCJGRY_NAME = #{JCJGRY_NAME},
+			</if>
+			<if test="JCJGRY_SEX != null">
+				JCJGRY_SEX = #{JCJGRY_SEX},
+			</if>
+			<if test="JCJGRY_CSNY != null">
+				JCJGRY_CSNY = #{JCJGRY_CSNY},
+			</if>
+			<if test="JCJGRY_ZZMM != null">
+				JCJGRY_ZZMM = #{JCJGRY_ZZMM},
+			</if>
+			<if test="JCJGRY_MZ != null">
+				JCJGRY_MZ = #{JCJGRY_MZ},
+			</if>
+			<if test="JCJGRY_SFSWRC != null">
+				JCJGRY_SFSWRC = #{JCJGRY_SFSWRC},
+			</if>
+			<if test="JCJGRY_ZGXL != null">
+				JCJGRY_ZGXL = #{JCJGRY_ZGXL},
+			</if>
+			<if test="JCJGRY_ZY != null">
+				JCJGRY_ZY = #{JCJGRY_ZY},
+			</if>
+			<if test="JCJGRY_ZC != null">
+				JCJGRY_ZC = #{JCJGRY_ZC},
+			</if>
+			<if test="JCJGRY_SZBM != null">
+				JCJGRY_SZBM = #{JCJGRY_SZBM},
+			</if>
+			<if test="JCJGRY_CSJSLYNX != null">
+				JCJGRY_CSJSLYNX = #{JCJGRY_CSJSLYNX},
+			</if>
+			<if test="JCJGRY_ZW != null">
+				JCJGRY_ZW = #{JCJGRY_ZW},
+			</if>
+			<if test="JCJGRY_CSJSLY != null">
+				JCJGRY_CSJSLY = #{JCJGRY_CSJSLY},
+			</if>
+			<if test="JCJGRY_BGWGZNX != null">
+				JCJGRY_BGWGZNX = #{JCJGRY_BGWGZNX},
+			</if>
+			<if test="JCJGRY_JCJGBMBH != null">
+				JCJGRY_JCJGBMBH = #{JCJGRY_JCJGBMBH},
+			</if>
+			<if test="JCJGRY_SBBH != null">
+				JCJGRY_SBBH = #{JCJGRY_SBBH},
+			</if>
+			<if test="JCJGRY_SFGLY != null">
+				JCJGRY_SFGLY = #{JCJGRY_SFGLY},
+			</if>
+			<if test="JCJGRY_SFBMGLY != null">
+				JCJGRY_SFBMGLY = #{JCJGRY_SFBMGLY}
+			</if>
+		</set>
+		WHERE
+			JCJGRY_ID = #{JCJGRY_ID}
+	</update>
+	
+	<!-- 删除监测机构用户 -->
+	<delete id="delOrgUser" parameterType="java.lang.String">
+		DELETE FROM 
+			HB_YWGL_JCJG_RYGL
+		WHERE 
+			JCJGRY_ID = #{JCJGRY_ID}
+	</delete>
+	
+	<!-- 查询证书 -->
+	<select id="findCertificate" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			JCJGRY_ZSBH,
+			JCJGRY_ZSMC,
+			JCJGRY_ZSLX,
+			JCJGRY_ZSDYJCXM,
+			JCJGRY_ZSFZSJ,
+			JCJGRY_ZSDQSJ,
+			JCJGRY_RYBH
+		FROM
+			HB_YWGL_JCJG_RYGL_ZSGL
+		WHERE
+			JCJGRY_RYBH = #{JCJGRY_RYBH}
+		ORDER BY JCJGRY_ZSBH
+	</select>
+	
+	<!-- 根据ID查询证书 -->
+	<select id="getCertificateById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			JCJGRY_ZSBH,
+			JCJGRY_ZSMC,
+			JCJGRY_ZSLX,
+			JCJGRY_ZSDYJCXM,
+			JCJGRY_ZSFZSJ,
+			JCJGRY_ZSDQSJ,
+			JCJGRY_RYBH
+		FROM
+			HB_YWGL_JCJG_RYGL_ZSGL
+		WHERE
+			JCJGRY_ZSBH = #{JCJGRY_ZSBH}
+	</select>
+	
+	<!-- 添加证书 -->
+	<insert id="addCertificate" parameterType="java.util.Map">
+		INSERT INTO HB_YWGL_JCJG_RYGL_ZSGL 
+		(
+			JCJGRY_ZSBH,
+			JCJGRY_ZSMC,
+			JCJGRY_ZSLX,
+			JCJGRY_ZSDYJCXM,
+			JCJGRY_ZSFZSJ,
+			JCJGRY_ZSDQSJ,
+			JCJGRY_RYBH
+		)
+		VALUES
+		(
+			#{JCJGRY_ZSBH},
+			#{JCJGRY_ZSMC},
+			#{JCJGRY_ZSLX},
+			#{JCJGRY_ZSDYJCXM},
+			#{JCJGRY_ZSFZSJ},
+			#{JCJGRY_ZSDQSJ},
+			#{JCJGRY_RYBH}
+		)
+	</insert>
+	
+	<!-- 更新证书 -->
+	<update id="updateCertificate" parameterType="java.util.Map">
+		UPDATE HB_YWGL_JCJG_RYGL_ZSGL
+		<set>
+			<if test="JCJGRY_ZSMC != null">
+				JCJGRY_ZSMC = #{JCJGRY_ZSMC},
+			</if>
+			<if test="JCJGRY_ZSLX != null">
+				JCJGRY_ZSLX = #{JCJGRY_ZSLX},
+			</if>
+			<if test="JCJGRY_ZSDYJCXM != null">
+				JCJGRY_ZSDYJCXM = #{JCJGRY_ZSDYJCXM},
+			</if>
+			<if test="JCJGRY_ZSFZSJ != null">
+				JCJGRY_ZSFZSJ = #{JCJGRY_ZSFZSJ},
+			</if>
+			<if test="JCJGRY_ZSDQSJ != null">
+				JCJGRY_ZSDQSJ = #{JCJGRY_ZSDQSJ},
+			</if>
+			<if test="JCJGRY_RYBH != null">
+				JCJGRY_RYBH = #{JCJGRY_RYBH}
+			</if>
+		</set>
+		WHERE
+			JCJGRY_ZSBH = #{JCJGRY_ZSBH}
+	</update>
+	
+	<!-- 删除证书 -->
+	<delete id="delCertificate" parameterType="java.lang.String">
+		DELETE FROM 
+			HB_YWGL_JCJG_RYGL_ZSGL
+		WHERE 
+			JCJGRY_ZSBH = #{JCJGRY_ZSBH}
+	</delete>
+</mapper>

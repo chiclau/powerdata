@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.dataacquisition.user.dao.BusinessUserDAO">
+	
+	<!-- 添加用户扩展字段 -->
+	<insert id="addExtendedUser" parameterType="java.util.Map">
+		INSERT INTO HB_SJCJ_YH_YHKZB 
+		(
+			XH,
+			YHID,
+			ZHJGMC,
+			YHCZ,
+			YZBM,
+			DZYX,
+			XZQHDMSHENG,
+			XZQHDMSHI,
+			XZQHDMXIAN,
+			YHJS,
+			QYID,
+			FWJGID
+		)
+		VALUES
+		(
+			#{XH},
+			#{YHID},
+			#{ZHJGMC},
+			#{YHCZ},
+			#{YZBM},
+			#{DZYX},
+			#{XZQHDMSHENG},
+			#{XZQHDMSHI},
+			#{XZQHDMXIAN},
+			#{YHJS},
+			#{QYID},
+			#{FWJGID}
+		)
+	</insert>
+	
+	<!-- 查询管理用户 -->
+	<select id="findSystemUser" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			YH.YHID,
+			YH.YHMC,
+			YH.YHMM,
+			YH.YHSJ,
+			YH.BGDH,
+			YH.XTZH,
+			YH.YHJB,
+			YH.BGDZ,
+			YHKZB.ZHJGMC,
+			YHKZB.YHCZ,
+			YHKZB.YZBM,
+			YHKZB.DZYX,
+			YHKZB.XZQHDMSHENG,
+			T1.JC XZQHMCSHENG,
+			YHKZB.XZQHDMSHI,
+			T2.JC XZQHMCSHI,
+			YHKZB.XZQHDMXIAN,
+			T3.JC XZQHMCXIAN,
+			YHKZB.YHJS,
+			YHKZB.QYID,
+			YHKZB.FWJGID
+		FROM
+			T_ADMIN_RMS_YH YH
+			INNER JOIN 
+				HB_SJCJ_YH_YHKZB YHKZB 
+			ON 
+				YH.YHID = YHKZB.YHID
+			LEFT JOIN 
+				T_PLATFORM_XZQHDM T1 
+			ON 
+				YHKZB.XZQHDMSHENG = T1.XZQHDM
+			LEFT JOIN 
+				T_PLATFORM_XZQHDM T2 
+			ON 
+				YHKZB.XZQHDMSHI = T2.XZQHDM
+			LEFT JOIN 
+				T_PLATFORM_XZQHDM T3 
+			ON 
+				YHKZB.XZQHDMXIAN = T3.XZQHDM
+		<where>
+			YH.SFYX = '1'
+			AND YHKZB.YHJS LIKE 'HBYH_GLJS%'
+			<if test="XZQHDMSHENG != null and XZQHDMSHENG != ''">
+				AND YHKZB.XZQHDMSHENG = #{XZQHDMSHENG}
+			</if>
+			<if test="XZQHDMSHI != null and XZQHDMSHI != ''">
+				AND YHKZB.XZQHDMSHI = #{XZQHDMSHI}
+			</if>
+			<if test="XZQHDMXIAN != null and XZQHDMXIAN != ''">
+				AND YHKZB.XZQHDMXIAN = #{XZQHDMXIAN}
+			</if>
+			<if test="YHMC != null and YHMC != ''">
+				AND YH.YHMC LIKE #{YHMC}
+			</if>
+			<if test="ZHJGMC != null and ZHJGMC != ''">
+				AND YHKZB.ZHJGMC LIKE #{ZHJGMC}
+			</if>
+			<if test="YHJS != null and YHJS != ''">
+				AND YHKZB.YHJS LIKE #{YHJS}
+			</if>
+		</where>
+		ORDER BY
+			YHKZB.XZQHDMSHENG,
+			YHKZB.XZQHDMSHI,
+			YHKZB.XZQHDMXIAN
+	</select>
+	
+	<!-- 批量添加用户与角色关系 -->
+	<insert id="addUserRoleRelBatch" parameterType="java.util.Map">
+		INSERT INTO T_ADMIN_RMS_YHYJSGXB
+		(
+			XH, 
+			YHID, 
+			JSBH, 
+			CJR, 
+			CJSJ, 
+			XGR, 
+			XGSJ
+		)
+		<foreach collection="addRoles" item="role" separator="UNION ALL">
+			SELECT 
+				#{role.XH}, 
+				#{YHID}, 
+				#{role.JSBH}, 
+				#{CJR}, 
+				#{CJSJ}, 
+				#{XGR}, 
+				#{XGSJ} 
+		</foreach>
+	</insert>
+	
+	<!-- 批量删除用户与角色关系 -->
+	<delete id="delUserRoleRelBatch" parameterType="java.util.Map">
+		DELETE FROM T_ADMIN_RMS_YHYJSGXB 
+		WHERE 
+			YHID = #{YHID}
+			AND JSBH IN
+			<foreach collection="delRoles" item="role" open="(" close=")" separator=",">
+			   	#{role}
+			</foreach>
+	</delete>
+	
+	<!-- 根据用户ID查询用户扩展信息 -->
+	<select id="getUserExtendByUserId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			XH,
+			YHID,
+			ZHJGMC,
+			YHCZ,
+			YZBM,
+			DZYX,
+			XZQHDMSHENG,
+			XZQHDMSHI,
+			XZQHDMXIAN,
+			YHJS,
+			QYID,
+			FWJGID
+		FROM
+			HB_SJCJ_YH_YHKZB
+		WHERE
+			YHID = #{YHID}
+	</select>
+	
+	<!-- 根据系统账号查询用户 -->
+	<select id="getUserByAccount" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			YH.YHID,
+			YH.YHMC,
+			YH.YHMM,
+			YH.YHSJ,
+			YH.BGDH,
+			YH.XTZH,
+			YH.YHJB,
+			YH.BGDZ,
+			YHKZB.ZHJGMC,
+			YHKZB.YHCZ,
+			YHKZB.YZBM,
+			YHKZB.DZYX,
+			YHKZB.XZQHDMSHENG,
+			YHKZB.XZQHDMSHI,
+			YHKZB.XZQHDMXIAN,
+			YHKZB.YHJS,
+			YHKZB.QYID,
+			YHKZB.FWJGID
+		FROM
+			T_ADMIN_RMS_YH YH
+			INNER JOIN 
+				HB_SJCJ_YH_YHKZB YHKZB 
+			ON 
+				YH.YHID = YHKZB.YHID
+		WHERE
+			YH.XTZH = #{XTZH}
+	</select>
+	
+	<!-- 根据用户ID查询用户 -->
+	<select id="getUserById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			YH.YHID,
+			YH.YHMC,
+			YH.YHMM,
+			YH.YHSJ,
+			YH.BGDH,
+			YH.XTZH,
+			YH.YHJB,
+			YH.BGDZ,
+			YHKZB.ZHJGMC,
+			YHKZB.YHCZ,
+			YHKZB.YZBM,
+			YHKZB.DZYX,
+			YHKZB.XZQHDMSHENG,
+			YHKZB.XZQHDMSHI,
+			YHKZB.XZQHDMXIAN,
+			YHKZB.YHJS,
+			YHKZB.QYID,
+			YHKZB.FWJGID
+		FROM
+			T_ADMIN_RMS_YH YH
+			INNER JOIN 
+				HB_SJCJ_YH_YHKZB YHKZB 
+			ON 
+				YH.YHID = YHKZB.YHID
+		WHERE
+			YH.YHID = #{YHID}
+	</select>
+	
+	<!-- 查询本级用户 -->
+	<select id="findSameRegionUser" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			YH.YHID,
+			YH.YHMC,
+			YH.YHMM,
+			YH.YHSJ,
+			YH.BGDH,
+			YH.XTZH,
+			YH.YHJB,
+			YH.BGDZ,
+			YHKZB.ZHJGMC,
+			YHKZB.YHCZ,
+			YHKZB.YZBM,
+			YHKZB.DZYX,
+			YHKZB.XZQHDMSHENG,
+			YHKZB.XZQHDMSHI,
+			YHKZB.XZQHDMXIAN,
+			YHKZB.YHJS,
+			YHKZB.QYID,
+			YHKZB.FWJGID
+		FROM
+			T_ADMIN_RMS_YH YH
+			INNER JOIN 
+				HB_SJCJ_YH_YHKZB YHKZB 
+			ON 
+				YH.YHID = YHKZB.YHID
+		WHERE
+			XZQHDMSHENG = #{XZQHDMSHENG}
+			AND XZQHDMSHI = #{XZQHDMSHI}
+			AND XZQHDMXIAN = #{XZQHDMXIAN}
+			<if test="YHJS != null and YHJS != ''">
+				AND YHKZB.YHJS LIKE #{YHJS}
+			</if>
+		ORDER BY
+			YH.YHID
+	</select>
+	
+	<!-- 更新用户扩展信息 -->
+	<update id="updateUserExtend" parameterType="java.util.Map">
+		UPDATE HB_SJCJ_YH_YHKZB
+		SET 
+			ZHJGMC = #{ZHJGMC},
+			YHCZ = #{YHCZ},
+			YZBM = #{YZBM},
+			DZYX = #{DZYX},
+			XZQHDMSHENG = #{XZQHDMSHENG},
+			XZQHDMSHI = #{XZQHDMSHI},
+			XZQHDMXIAN = #{XZQHDMXIAN},
+			YHJS = #{YHJS}
+		WHERE
+			YHID = #{YHID}
+	</update>
+	
+	<!-- 查询所有用户 -->
+	<select id="findAllUser" resultType="java.util.Map">
+		SELECT
+			YH.YHID,
+			YH.YHMC,
+			YH.YHMM,
+			YH.YHSJ,
+			YH.BGDH,
+			YH.XTZH,
+			YH.YHJB,
+			YH.BGDZ,
+			YHKZB.ZHJGMC,
+			YHKZB.YHCZ,
+			YHKZB.YZBM,
+			YHKZB.DZYX,
+			YHKZB.XZQHDMSHENG,
+			YHKZB.XZQHDMSHI,
+			YHKZB.XZQHDMXIAN,
+			YHKZB.YHJS,
+			YHKZB.QYID,
+			YHKZB.FWJGID
+		FROM
+			T_ADMIN_RMS_YH YH
+			INNER JOIN 
+				HB_SJCJ_YH_YHKZB YHKZB 
+			ON 
+				YH.YHID = YHKZB.YHID
+		WHERE
+			YH.SFYX = '1'
+	</select>
+</mapper>

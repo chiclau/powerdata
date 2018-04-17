@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.businessmanagement.organization.organization.dao.OrganizationDAO">
+
+	<!-- 添加监测机构 -->
+	<insert id="addOrganization" parameterType="java.util.Map">
+		INSERT INTO HB_YWGL_JCJG_JGGL 
+		(
+			JCJG_ID,
+			JCJG_JGMC,
+			JCJG_JGSZD,
+			JCJG_LXR,
+			JCJG_LXRDH,
+			JCJG_JGJJ,
+			JCJG_GLYBH,
+			JCJG_SHENG,
+			JCJG_SHI,
+			JCJG_XIAN,
+			USERDLMC
+		)
+		VALUES
+		(
+			#{JCJG_ID},
+			#{JCJG_JGMC},
+			#{JCJG_JGSZD},
+			#{JCJG_LXR},
+			#{JCJG_LXRDH},
+			#{JCJG_JGJJ},
+			#{JCJG_GLYBH},
+			#{JCJG_SHENG},
+			#{JCJG_SHI},
+			#{JCJG_XIAN},
+			#{USERDLMC}
+		)
+	</insert>
+	
+	<!-- 更新监测机构 -->
+	<update id="updateOrganization" parameterType="java.util.Map">
+		UPDATE HB_YWGL_JCJG_JGGL
+		SET 
+			JCJG_JGMC = #{JCJG_JGMC},
+		 	JCJG_JGSZD = #{JCJG_JGSZD},
+		 	JCJG_LXR = #{JCJG_LXR},
+		 	JCJG_LXRDH = #{JCJG_LXRDH},
+		 	JCJG_JGJJ = #{JCJG_JGJJ}
+		WHERE
+			JCJG_ID = #{JCJG_ID}
+	</update>
+	
+	<!-- 根据行政区划查询监测机构 -->
+	<select id="getOrganizationByRegion" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			JCJG_ID,
+			JCJG_JGMC,
+			JCJG_JGSZD,
+			JCJG_LXR,
+			JCJG_LXRDH,
+			JCJG_JGJJ,
+			JCJG_GLYBH,
+			JCJG_SHENG,
+			JCJG_SHI,
+			JCJG_XIAN,
+			USERDLMC
+		FROM
+			HB_YWGL_JCJG_JGGL
+		WHERE
+			JCJG_SHENG = #{JCJG_SHENG}
+			AND JCJG_SHI = #{JCJG_SHI}
+			AND JCJG_XIAN = #{JCJG_XIAN}
+	</select>
+	
+</mapper>

@@ -1,0 +1,71 @@
+/**
+* ui-grid 蓝色UI
+**/
+
+.watermark {
+	margin-top: 10px;	
+}
+.ui-grid{
+	border: none;
+	background-color: #FFF;
+	margin-bottom: 5px;
+}
+.ui-grid-header-cell-wrapper {
+    background-color: #d3eaff;
+    color:#3f6b94;
+    border: 0;
+}
+/*******头部高度*****/
+.ui-grid-header-cell .ui-grid-cell-contents {
+    padding: 0;
+    line-height: 50px;
+    height: 50px;
+}
+.ui-grid-header-cell{
+    text-align: center;
+	padding-left: 5px;
+}
+/**右边最右边滚动条*/
+.ui-grid-render-container-body .ui-grid-header-canvas{
+	background: #d3eaff!important
+}
+/*头部最右边的边框*/
+.ui-grid-header-cell:last-child .ui-grid-column-resizer.right {
+    border-right:0;
+}
+
+.ui-grid-header-cell-primary-focus{
+		outline-width:0;
+		outline-color:#d3eaff;
+}
+
+/**********row 内容***********/
+.ui-grid-row, .grid1499246523239 .ui-grid-cell, .grid1499246523239 .ui-grid-cell .ui-grid-vertical-bar{
+	height: 45px!important;
+}
+.ui-grid-row:last-child .ui-grid-cell {
+   line-height: 45px;
+   padding-left: 4px;
+}
+.ui-grid-cell,.ui-grid-cell .ui-grid-vertical-bar{
+	height: 45px!important;
+	padding-left: 4px;
+}
+.ui-grid-cell-contents{
+	line-height: 45px;
+}
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+    background-color: #FFF;
+    border-bottom: 1px solid #FFF;
+}
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: #FBFBFB;
+    border-bottom: 1px solid #FFF;
+}
+.ui-grid-row:nth-child(odd) .ui-grid-click, .color-ext .ui-grid-row:nth-child(odd) .ui-grid-click {
+    background-color: #e2f2ff;
+}
+.ui-grid-row:nth-child(even) .ui-grid-click, .color-ext .ui-grid-row:nth-child(odd) .ui-grid-click {
+    background-color: #e2f2ff;
+}
+

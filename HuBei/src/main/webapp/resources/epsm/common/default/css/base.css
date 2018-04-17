@@ -1,0 +1,860 @@
+
+
+::-webkit-scrollbar-track-piece{background-color:#fff;!important}
+::-webkit-scrollbar{width:2px;!important}
+::-webkit-scrollbar-thumb{background:#F7F7F7;!important;} 
+
+.clear{
+	clear: both;
+}
+/*****修改boostrap布局*******/
+.container-full{
+	padding: 0px 8px;
+}
+.row{
+	margin-left: -8px;
+	margin-right: -8px;
+}
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+	padding-right: 8px;
+	padding-left: 8px;
+}
+/**
+*	等待加载
+*/
+.power-load{
+	background:url("../images/load/loading.gif") no-repeat;
+	background-position: center;
+}
+
+
+/********公共面板******/
+.power-navbar{
+	height: 29px
+	margin-left: -8px;
+	text-align: left;
+	line-height: 35px;
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+.power-navbar strong{
+    color: #626262;
+    font-size: 14px;
+    border-left: 6px solid #3981e7;
+    padding-left: 5px;
+}
+
+.ellipsis{
+	overflow-x:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.power-hide{
+	display: none;
+}
+.power-show{
+	display: block;
+}
+
+/**重写样式*/
+
+/**重写文件上传样式*/
+.webuploader-pick{
+	padding: 6px 10px;
+}	
+.upload-panel-top{
+	border-left: 5px solid #368AE0;
+	background-color: rgb(238,249,255);
+	margin-bottom: 10px;padding-top:5px;
+	border-bottom: 1px solid #D8D8D8;
+	box-shadow:0 2px 2px rgb(238,249,255);
+}
+
+/********附件上传css  end*********/
+
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.p5{
+	padding: 5px;
+}
+.p10{
+	padding: 8px;
+}
+.pt10{
+	padding-top: 10px;
+}
+.pl10{
+	padding-left: 10px;
+}
+.pr10{
+	padding-right: 10px;
+}
+.pb10{
+	padding-bottom: 10px;
+}
+
+.pt5{
+	padding-top: 5px;
+}
+.pl5{
+	padding-left: 5px;
+}
+.pr5{
+	padding-right: 5px;
+}
+.pb5{
+	padding-bottom: 5px;
+}
+.m0{
+	margin: 0;
+}
+.m10{
+	margin: 10px;
+}
+.mt10{
+	margin-top: 10px;
+}
+.mr10{
+	margin-right: 10px;
+}
+.ml10{
+	margin-left: 10px;
+}
+.mb10{
+	margin-bottom: 10px;
+}
+.m5{
+	margin: 5px;
+}
+.mt5{
+	margin-top: 5px;
+}
+.mr5{
+	margin-right: 5px;
+}
+.ml5{
+	margin-left: 5px;
+}
+.mb5{
+	margin-bottom: 5px;
+}
+
+.pointer{
+	cursor: pointer;
+}
+.radius2{
+	border-radius:2px;
+}
+.radius3{
+	border-radius:3px;
+}
+.radius4{
+	border-radius:4px;
+}
+.radius5{
+	border-radius:5px;
+}
+.radius6{
+	border-radius:6px;
+}
+.radius7{
+	border-radius:7px;
+}
+.radius8{
+	border-radius:8px;
+}
+.radius10{
+	border-radius:10px;
+}
+.radius12{
+	border-radius:12px;
+}
+
+.radius20{
+	border-radius:20px;
+}
+
+
+/*****************表单样式重写***************************/
+/**用户选择去掉下划线*/
+.input-group-addon{
+	border-bottom: 0;
+}
+
+.edit-header .edit-btn-box{
+	padding-right: 21px;
+	position: fixed;
+    right: 0px;
+    z-index: 999;
+}
+
+
+.edit-body{
+	margin-right: 50px;	
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled].form-control{
+	/* background: #F7F7F7; */
+}
+.form-control{
+	border-radius: 0;
+}  
+/* .form-control:FOCUS{
+	    background-color: rgb(255,253,239);
+} */
+.form-control.ui-select-toggle{
+	border: none;
+}
+.form-group textarea{
+	border: 1px solid rgb(232, 232, 232);
+}
+
+.choose-more-btn{
+	background-color: #5DB5FF;
+	width: 10%;
+	height: 34px;
+	float: left;
+	color: #FFF;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+	
+/***基于表格布局的表单样式**/	
+.form-lable{
+ 	/* background-color: #f1f4f6; */
+ 	background-color: #edf7ff;
+	width: 140px;
+	text-align: right;
+	padding: 8px 8px 8px 0;
+	font-size: 1rem;
+}
+.form-table label{
+	padding-top: 7px;
+}
+
+.form-table tr,td{
+	border: 1px solid #e3e9ee;
+}
+
+.form-table input,textarea{
+	border: none;
+}
+.form-table codeset .ui-select-container .ui-select-toggle{
+	border-bottom: none;
+}
+.grid-data-pick>input{
+	width: 90%!important;
+}
+.grid-data-pick{
+	width: 100%;
+	/* border: 1px solid red; */
+}
+.grid-pick-btn{
+	background-color: #50a078;
+	color: #FFF;
+	height: 34px;
+	padding-top:10px;
+	width: 45px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.power-from-control{
+	font-size:1rem;
+	outline:none;
+	width: 100%;
+    height: 30px;
+    padding: 6px 12px;
+    background-image: none;
+}
+
+.power-from-control:FOCUS {
+	border:none;
+    background-color:#F9F8F4;
+}
+/**附件上传时间选择*/
+.power-from-control.file-upload-date:FOCUS,.file-list-content .table tr td input.sort-set:FOCUS{
+	border: 1px solid #e3e9ee;
+}
+.power-from-control.file-upload-date[disabled]{
+	border: none;
+}
+.file-list-content .table tr td input.sort-set{
+	border: 1px solid #e3e9ee;
+}
+
+/**禁用样式begin***/
+.form-table.disabled .form-lable{
+ 	background-color: #f1f4f6;
+}
+.form-lable.disabled{
+	background-color: #f1f4f6;
+}
+.form-table.disabled .pd-required{
+	display: none;
+}
+.power-from-control[disabled]{
+	background-color: #fff;	
+}
+.power-from-control[disabled].power-input-date{
+	background-image: none!important;
+}
+/*******禁用样式end*****/
+
+.power-invalid .magic-checkbox + label::before, codeset >.pt-invalid .magic-radio + label::before {
+    border-color: #FF2C43;
+}
+.power-invalid .magic-radio + label::before, codeset >.pt-invalid .magic-radio + label::before {
+    border-color: #FF2C43;
+}
+
+
+/***基于表格布局的表单样式 end**/	
+/*组合*/
+.power-form-group{
+	display: table;	
+    width: 99%;
+}
+.power-form-group .power-from-control{
+	display: block;
+}
+.power-form-group .power-from-pick-btn{
+		padding: 6px 12px;
+	    font-size: 14px;
+	    font-weight: 400;
+	    line-height: 1;
+	    color: #FFF;
+	    text-align: center;
+	    background-color: #1e8ce8;
+	    display: table-cell;
+	    white-space: nowrap;
+   		vertical-align: middle;
+   		cursor:pointer;
+   		position: relative;
+   		width: 1%;
+}
+
+/**********************************************************/
+
+/********************搜索条*************************************/
+.search-nav-panel{
+	padding: 8px 0 8px 0;
+}
+.seach-cdt input{
+	height: 28px;
+	border: 1px solid #ccc;
+}
+.power-list-search-param{
+	float: left;
+}
+.power-search{
+	width: 320px;
+}
+.power-list-btns{
+	width: 350px;	
+	text-align: right;
+	float: right;
+}
+.power-search-input{
+	border:none;
+	height: 30px;
+	width:210px;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+}
+.power-search-input:FOCUS{
+	outline:none;
+	border-bottom: 1px solid #2084db;
+}
+
+.power-search,power-search-label,.power-search-input{
+	display: table-cell;
+	font-size: 14px;	
+}
+/*********************************************************/
+
+
+/***************自定义Tab样式*************/
+.power-nav-tab{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #e5e5e5;
+	font-size: 14px; 
+	padding-top: 0;
+}
+/**清理浮动*/
+.power-nav-tab::AFTER {
+	content: '';
+    display: block;
+    width: 0px;
+    height: 0px;
+    clear: both;
+}
+.power-nav-tab li{
+	border: 1px solid #e5e5e5;
+	float: left;
+	line-height: 40px;
+	padding: 0 15px 0 15px;
+	margin-top:2px;
+	margin-left:10px;
+	height: 38px;
+	line-height: 38px;
+	/* background: url(../images/icon_tab_bd.png) no-repeat right; */
+	cursor: pointer;
+	color: #5d5d5d;
+	position: relative;
+}
+
+.power-nav-tab li:HOVER,.power-nav-tab>li.active {
+	/* color: #0063ba; */
+	border-top: 4px solid #3981e7;
+	font-weight: bold;
+	border-bottom-color: #FFFFFF;
+}
+.power-nav-tab li:HOVER::BEFORE,.power-nav-tab>li.active::BEFORE{
+	 background: #0063ba;
+}
+
+.power-tab-close{
+	display: block;
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	top: -9px;
+	right: -9px;
+	background: url(../images/tab-close.png) no-repeat;
+}
+.power-tab-close:HOVER{
+	background: url(../images/tab-close-hover.png) no-repeat;
+}
+.power-tab-contain{
+	padding-top: 5px;
+}
+/**菜单tab导航*/
+.power-menu-nav-tab{
+	width: 100%;
+	height: 45px;
+	/* border-bottom: 1px solid #e5e5e5; */
+	font-size: 15px; 
+	background-color: #FFF;
+	padding-left: 50px;
+	box-shadow: 0px 1px 1px #CCC;
+}
+/**清理浮动*/
+.power-menu-nav-tab::AFTER {
+	content: '';
+    display: block;
+    width: 0px;
+    height: 0px;
+    clear: both;
+}
+.power-menu-nav-tab>li{
+	float: left;
+	line-height:45px;
+	cursor: pointer;
+	color: #5d5d5d;
+	position: relative;
+}
+.power-menu-nav-tab>li>span{
+	padding: 0 20px 0 20px;
+	border-left: 1px solid #e5e5e5;
+}
+.power-menu-nav-tab li:first-child span{
+	border-left: 0px;
+}
+
+.power-menu-nav-tab li:HOVER,.power-menu-nav-tab>li.active {
+	color: #0099CC;
+}
+.power-menu-nav-tab li:HOVER::BEFORE,.power-menu-nav-tab>li.active::BEFORE{
+	 background: #0063ba;
+}
+/****菜单导航end****/
+
+/***************/
+
+
+/****************/
+
+.power-tab-close{
+	display: block;
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	top: -9px;
+	right: -9px;
+	background: url(../images/tab-close.png) no-repeat;
+}
+.power-tab-close:HOVER{
+	background: url(../images/tab-close-hover.png) no-repeat;
+}
+.power-tab-contain{
+	padding-top: 5px;
+}
+
+
+/*************************************************************/
+
+
+/**************************power-adv-search 高级查询****************************/
+.form-group input{
+	margin: 0;
+}
+
+.power-query input[placeholder], [placeholder], *[placeholder]{
+	font-size: 14px;
+	/* margin: 8px 0; */
+}
+.power-query{
+	width: 100%;
+	font-size: 14px;
+}
+.power-query td{
+	border: 0;	
+}
+.power-query-box{
+	width: 100%;
+}
+.power-query-input{
+	width:100%;
+	height: 36px;
+    line-height: 36px;
+	background: #F4F4F4 url(../images/icon_search.png) no-repeat 98% center;
+    border: 1px solid #DEDEDE;
+    color: #a0a0a0;
+    outline:none;
+    padding-left: 8px;
+    margin-top: 2px;
+}
+.power-query-input:FOCUS {
+	border: 1px solid #5bb3fc;
+}
+.power-adv-select-btn{
+	border: 1px solid #dedede;
+    background: url(../images/icon_arrow_bot.png) no-repeat 92% center;
+    height: 36px;
+    line-height: 36px;
+    padding:0 8px 0 8px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.power-adv-select-btn.on{
+	border-color: #5bb3fc;
+    background: url(../images/arrow_up.png) no-repeat 92% center;
+}
+
+.power-query-tools{
+	text-align: right;
+} 
+
+.power-sub-query{
+	margin:3px 3px;
+	border-top: 1px dashed #d8d8d8; 
+	border-bottom: 1px dashed #d8d8d8; 
+	/* padding: 10px 0; */
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+/* .power-query-item:first-child{
+	margin-top: 0;
+} */
+.power-query-item{
+	display: table;
+    table-layout: fixed;
+    margin-top: 10px;
+}
+
+.power-query-title,.power-query-content{
+	display: table-cell;
+}
+.power-query-title{
+	border-left: 6px solid #2084db;
+	padding: 6px 0 8px 0;
+}
+.power-query-title:BEFORE{
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	background-color: #2084db;
+	border-radius:8px;
+	margin: 0 5px;
+	
+}
+.power-query-content .power-query-param:first-child {
+    border-left: none;
+}
+.power-query-content .power-query-param{
+	border-left: 1px solid #666666;
+	margin-top: 5px;
+    padding: 0px 15px;
+	display: inline-block;
+	cursor: pointer;
+}   
+.power-query-content .power-query-param:HOVER,.power-query-param.on{
+	color: #2084db;
+}   
+
+/*********行政处罚高级查询组件********/
+.form-group input{
+	margin: 0;
+}
+
+.power-normal-query input[placeholder], [placeholder], *[placeholder]{
+	font-size: 14px;
+	/* margin: 8px 0; */
+}
+.power-normal-query{
+	width: 100%;
+	font-size: 14px;
+}
+.power-normal-query td{
+	border: 0;	
+}
+.power-normal-query-box{
+	width: 100%;
+}
+.power-normal-query-input{
+	width:100%;
+	height: 36px;
+    line-height: 36px;
+	background: #F4F4F4 url(../images/icon_search.png) no-repeat 98% center;
+    border: 1px solid #DEDEDE;
+    color: #a0a0a0;
+    outline:none;
+    padding-left: 20px;
+    margin-top: 2px;
+    border-radius:20px;
+    background-color: #FFF;
+}
+.power-normal-query-input:FOCUS {
+	border: 1px solid #ccc;
+}
+.power-normal-adv-select-btn{
+    background: url(../images/search_arrow_bot.png) no-repeat 80% center;
+    height: 32px;
+    line-height: 32px;
+    padding:0 8px 0 8px;
+    margin: 0 10px;
+    cursor: pointer;
+    color: #FFF;
+    border-radius:2px;
+    background-color: #39bc15;
+    width: 100px;
+    display: inline-block;
+    text-align: left;
+}
+.power-normal-adv-select-btn.on{
+    background: url(../images/search_arrow_top.png) no-repeat 80% center;
+	background-color: #39bc15;
+}
+.power-query-btn{
+	 border-radius:2px;
+}
+.power-normal-query-tools{
+	
+} 
+
+.power-normal-sub-query{
+	/* border-top: 1px dashed #d8d8d8; 
+	border-bottom: 1px dashed #d8d8d8;  */
+	/* padding: 10px 0; */
+	padding-bottom: 10px;
+	/* margin-bottom: 10px; */
+	background-color: #FFF;
+	padding-left: 20px;
+}
+/* .power-normal-query-item:first-child{
+	margin-top: 0;
+} */
+.power-normal-query-item{
+	display: table;
+    table-layout: fixed;
+    margin-top: 10px;
+}
+
+.power-normal-query-title,.power-normal-query-content{
+	display: table-cell;
+}
+
+.power-normal-query-title{
+	padding: 6px 0 8px 0;
+	font-weight: 600;
+}
+
+.power-normal-query-content .power-normal-query-param:first-child {
+    border-left: none;
+}
+
+.power-normal-query-content .pt-popup-select>input{
+	border: none;
+}
+
+.power-normal-query-content .power-normal-query-param{
+	margin-top: 5px;
+    padding: 2px 15px;
+	display: inline-block;
+	cursor: pointer;
+	margin-left: 10px;
+}   
+.power-normal-query-content .power-normal-query-param:HOVER,.power-normal-query-param.on{
+	color: #FFF;
+	background-color: #fc8b2e;
+	border-radius:2px;
+}   
+
+/**
+*高级查询select 美化
+*/
+.power-query-select{
+	height: 34px;
+	border: 1px solid #e3e9ee;
+	width: 279px;
+}
+
+    
+/**********按钮*********/
+.power-btn{
+	line-height: 12px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 10px 12px;
+    border: 0 none;
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: none;
+    display: inline-block;
+    height: 32px;
+    border-radius:2px;
+}
+.power-btn.power-btn-default {
+     background: #2084db;
+}
+.power-btn.power-btn-green {
+     background: #37b749;
+}
+.power-btn:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+.power-group-btn{
+	display: table-cell;
+	border: 1px solid red;
+}
+.power-btn.power-btn-select{
+	background: #2084db;
+}
+
+/*************时间控件************/
+.power-input-date{
+	background-image : url(../images/icon_calendar.png) ! important;
+	background-repeat:no-repeat ! important;
+	background-position:right ! important;
+    cursor: pointer;
+    background-origin: content-box;
+    outline: none;
+    display: inline-block;
+    font-size: 14px;
+    padding: 6px 12px;
+    color: #353535;
+    vertical-align: middle;
+    border: 1px solid #e3e9ee;
+    height: 35px;
+    line-height: 35px;
+}
+
+/****************时间控件 end ***********************/
+.tab-pane{
+	padding-top: 10px;
+}
+.btn-icon {
+    display: inline-block;
+    margin-right: 5px;
+    line-height: 14px;
+    width: 14px;
+    height: 14px;
+}
+.btn-icon.icon-save {
+    background: url('../images/save.png') no-repeat;
+}
+
+/****************签名组件************/
+.power-sigt-panel{
+	width: 100%;
+	height: 100%;
+	margin: 2px;
+	padding: 2px 8px 2px 2px;	
+}
+.power-sigt-image{
+	width: 80px;
+	position: relative;
+	margin-right: 10px;
+}
+.power-sigt-image img {
+	width: 80px;
+	height: 38px;
+}
+.power-sigt-close{
+	position: absolute;
+	right: -14px;
+	top: 0;
+	color: #CACACA;
+	cursor: pointer;
+	font-size: 16px;
+}
+.power-sigt-close:HOVER {
+	color: #FB8939;
+}
+
+.power-sigt-confirm-panel{
+	width: 100%;
+	font-size: 14px;
+	padding: 10px;
+	margin: 0 auto;
+	text-align: center;
+}
+.power-sigt-confirm-table{
+	width: 400px;
+	margin: 0 auto;
+}
+
+.power-sigt-confirm-table tr{
+	border: 0;
+}
+.power-sigt-confirm-table td{
+	border: 0;
+}
+.power-sigt-confirm-panel input{
+	border: 1px solid #cccccc;
+	height:30px; 
+	width: 200px;		
+}
+.power-sigts-invalid{
+	border: 1px solid #ffa8a8;
+}
+/**
+* 禁用按钮
+**/
+.power-btn.power-sigt-diabled-btn{
+	cursor: not-allowed;
+	background: #C1CEBE;
+}
+/********************用户签名完毕******************************/
+
+/*************高级下拉选择 begin**********/
+.power-adv-select{
+	
+	
+	
+}
+
+

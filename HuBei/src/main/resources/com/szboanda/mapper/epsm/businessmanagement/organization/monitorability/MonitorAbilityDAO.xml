@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.businessmanagement.organization.monitorability.dao.MonitorAbilityDAO">
+
+	<!-- 查询监测机构 -->
+	<select id="queryMonitorAbility" resultType="Map">
+		SELECT 
+			CODE.C_NAME,
+			JCXM.JCJG_SBJCX_JCXM,
+			JCXM.JCJG_SBJCX_FFYL,
+			SB.JCJGSB_SBMC,
+			ZS.JCJGRY_ZSDYJCXM,
+			RY.JCJGRY_NAME  
+		FROM 
+			HB_YWGL_JCJG_RYGL_ZSGL ZS 
+		INNER JOIN 
+			HB_YWGL_JCJG_RYGL RY 
+		ON 
+			ZS.JCJGRY_RYBH = RY.JCJGRY_ID
+		INNER JOIN 
+			HB_YWGL_JCJG_SBGL SB 
+		ON 
+			SB.JCJGSB_RYBH=RY.JCJGRY_ID
+		INNER JOIN 
+			HB_YWGL_JCJG_SBGL_JCXM JCXM 
+		ON 
+			JCXM.JCJG_SBJCX_SBID=SB.JCJGSB_ID 
+			AND  
+			JCXM.JCJG_SBJCX_CZRYID=RY.JCJGRY_ID
+		LEFT JOIN 
+			EAP_SYS_UTIL_CODE CODE 
+		ON 
+			CODE.PARENT='DEVICE' AND CODE.PARAM0=ZS.JCJGRY_ZSLX	
+		ORDER BY CODE.C_NAME
+	</select>
+	<select id="queryAreaMonitorAbility" parameterType="Map" resultType="Map">
+		SELECT 
+		<trim prefix="" suffixOverrides="," suffix=",">
+			<if test="isArea != null and isArea != ''">XZQH.XZQH,</if>
+			<if test="isJg != null and isJg != ''">JG.JCJG_JGMC,</if>
+			<if test="isJcxm != null and isJcxm != ''">JCXM.JCXM,</if>
+			<if test="isJcff != null and isJcff != ''">JCFF.FFMC,</if>								
+		</trim>
+			COUNT(DISTINCT RY.JCJGRY_ID) RYSL,
+			COUNT(DISTINCT SB.JCJGSB_ID) SBSL
+		FROM 
+			HB_YWGL_JCJG_RYGL_ZSGL ZS  
+		INNER JOIN 
+			HB_YWGL_JCJG_RYGL RY  
+		ON 
+			ZS.JCJGRY_RYBH = RY.JCJGRY_ID
+		INNER JOIN
+			HB_YWGL_JCJG_JGGL JG 
+		ON 
+			JG.JCJG_ID=RY.JCJGRY_JGBH
+		INNER JOIN 
+			HB_YWGL_JCJG_SBGL SB  
+		ON 
+			SB.JCJGSB_RYBH=RY.JCJGRY_ID
+		INNER JOIN 
+			HB_YWGL_JCJG_SBGL_JCXM SBJCXM  
+		ON 
+			SBJCXM.JCJG_SBJCX_SBID=SB.JCJGSB_ID 
+		AND  
+			SBJCXM.JCJG_SBJCX_CZRYID=RY.JCJGRY_ID
+		LEFT JOIN 
+			EAP_SYS_UTIL_CODE CODE   
+		ON 
+			CODE.PARENT='DEVICE' AND CODE.PARAM0=ZS.JCJGRY_ZSLX
+		INNER JOIN 
+			HB_SJCJ_QY_JYJC_JCXM_J  JCXM 
+    	ON 
+      		JCXM.X_ID=ZS.JCJGRY_ZSDYJCXM
+		INNER JOIN 
+      		HB_ZXJCZSK_JCFFK_JCXM_GXB  GXB
+		ON 
+      		GXB.JCXMID=JCXM.X_ID
+		INNER JOIN
+			HB_ZXJCZSK_JCFFK_JBXX  JCFF 
+    	ON
+			GXB.JCFFID=JCFF.ID
+		INNER JOIN
+			T_PLATFORM_XZQHDM	XZQH	 
+		ON 
+			XZQH.XZQHDM=JCXM.SHENG
+		<where>
+			<if test="JCJG_ID != null and JCJG_ID !=''">
+				JG.JCJG_ID=#{JCJG_ID}
+			</if>
+			<if test="SHENG !=null and SHENG !=''">
+				AND JCXM.SHENG=#{SHENG}
+			</if>
+			<if test="SHI !=null and SHI !=''">
+				AND JCXM.SHI=#{SHI}
+			</if>
+			<if test="XIAN !=null and XIAN !=''">
+				AND JCXM.XIAN=#{XIAN}
+			</if>
+			<if test="X_ID !=null and X_ID !=''">
+				AND JCXM.X_ID=#{X_ID}
+			</if>
+			<if test="ID !=null and ID !=''">
+				AND JCFF.ID=#{ID}
+			</if>
+			<if test="JCJGRY_ZSLX !=null and JCJGRY_ZSLX !=''">
+				AND ZS.JCJGRY_ZSLX=#{JCJGRY_ZSLX}
+			</if>																										
+		</where>	 			 
+		<trim prefix="GROUP BY" suffixOverrides="," suffix="">
+			<if test="isArea != null and isArea != ''">XZQH.XZQH,</if>
+			<if test="isJg != null and isJg != ''">JG.JCJG_JGMC,</if>
+			<if test="isJcxm != null and isJcxm != ''">JCXM.JCXM,</if>
+			<if test="isJcff != null and isJcff != ''">JCFF.FFMC,</if>								
+		</trim> 
+		ORDER BY
+		<trim prefix="" suffixOverrides="," suffix=",">
+			<if test="isArea != null and isArea != ''">XZQH.XZQH,</if>
+			<if test="isJg != null and isJg != ''">JG.JCJG_JGMC,</if>
+			<if test="isJcxm != null and isJcxm != ''">JCXM.JCXM,</if>
+			<if test="isJcff != null and isJcff != ''">JCFF.FFMC,</if>								
+		</trim>	
+			COUNT(DISTINCT RY.JCJGRY_ID)	
+	</select>
+</mapper>

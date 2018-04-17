@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.dataacquisition.companyuser.dao.CompanyUserDAO">
+
+	<!-- 查询企业用户 -->
+	<select id="findCompanyUser" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			YH.YHID,
+			YH.YHMC,
+			YH.YHMM,
+			YH.YHSJ,
+			YH.BGDH,
+			YH.XTZH,
+			YH.YHJB,
+			YH.BGDZ,
+			YHKZB.ZHJGMC,
+			YHKZB.YHCZ,
+			YHKZB.YZBM,
+			YHKZB.DZYX,
+			YHKZB.XZQHDMSHENG,
+			YHKZB.XZQHDMSHI,
+			YHKZB.XZQHDMXIAN,
+			YHKZB.YHJS,
+			YHKZB.QYID,
+			YHKZB.FWJGID
+		FROM
+			T_ADMIN_RMS_YH YH
+			INNER JOIN 
+				HB_SJCJ_YH_YHKZB YHKZB 
+			ON 
+				YH.YHID = YHKZB.YHID
+		WHERE 
+			YHKZB.QYID = #{QYID}
+			AND YH.YHJB = '9'
+			AND YH.SFYX = '1'
+			<if test="YHJS != null and YHJS != ''">
+				AND YHKZB.YHJS LIKE #{YHJS}
+			</if>
+		ORDER BY
+			YH.YHID
+	</select>
+</mapper>

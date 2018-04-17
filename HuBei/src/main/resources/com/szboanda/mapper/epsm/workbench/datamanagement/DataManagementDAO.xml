@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.workbench.datamanagement.dao.DataManagementDAO">
+	
+	<sql id="allColumns">
+		ID,QYBM,QYMC,CYM,YH.YHID,SHFWM,ZZJGDM,QYLB,WSCLCLB,QYGMDM,ZCLXDM,HYLB,
+		QYZCDZSHENG,QYZCDZSHI,QYZCDZXIAN,QYZCDZXZ,QYZCDZ,QYZCDZBM,
+		QY.XZQHDMSHENG,QY.XZQHDMSHI,QY.XZQHDMXIAN,QYXXDZXZ,QYXXDZ,QYYZBM,
+		QYZXJDDU,QYZXJDFEN,QYZXJDMIAO,QYZXWDDU,QYZXWDFEN,QYZXWDMIAO,
+		HBLXRXM,HBLXRDH,HBLXRSJH,HBLXRDZYX,HBLXRCZ,DWPMSYTCFWZ,QYWZ,FRDBXM,QYLX,SSJT,ZDYSX,
+		JCTCNY,PWXKZBH,PWXKZFZRQ,JCJG,YYJG 
+	</sql>
+	
+	<!-- 根据ID查询资料 -->
+	<select id="queryDataInfoById"  parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT <include refid="allColumns"/>  FROM HB_SJCJ_QY_JBXX QY
+		LEFT JOIN HB_SJCJ_YH_YHKZB YH ON  QY.ID=YH.QYID WHERE  ID = #{qyid}
+	</select>
+	
+	
+	<!-- 修改资料 -->
+	<update id="updateDataInfo" parameterType="java.util.Map">
+		UPDATE HB_SJCJ_QY_JBXX
+		<set>
+			<if test="QYMC != null and QYMC != ''"> QYMC = #{QYMC}, </if>
+			<if test="CYM != null and CYM != ''"> CYM = #{CYM}, </if>
+			<if test="SHFWM != null and SHFWM != ''"> SHFWM = #{SHFWM}, </if>
+			<if test="ZZJGDM != null and ZZJGDM != ''"> ZZJGDM = #{ZZJGDM}, </if>
+			<if test="QYLB != null and QYLB != ''"> QYLB = #{QYLB}, </if>
+			<if test="WSCLCLB != null"> WSCLCLB = #{WSCLCLB}, </if>
+			<if test="QYGMDM != null and QYGMDM != ''"> QYGMDM = #{QYGMDM}, </if>
+			<if test="ZCLXDM != null and ZCLXDM != ''"> ZCLXDM = #{ZCLXDM}, </if>
+			<if test="HYLB != null and HYLB != ''"> HYLB = #{HYLB}, </if>
+			<if test="QYZCDZSHENG != null and QYZCDZSHENG != ''"> QYZCDZSHENG = #{QYZCDZSHENG},</if>
+			<if test="QYZCDZSHI != null and QYZCDZSHI != ''"> QYZCDZSHI = #{QYZCDZSHI}, </if>
+			<if test="QYZCDZXIAN != null and QYZCDZXIAN != ''"> QYZCDZXIAN = #{QYZCDZXIAN},</if>
+			<if test="QYZCDZXZ != null and QYZCDZXZ != ''"> QYZCDZXZ = #{QYZCDZXZ},</if>
+			<if test="QYZCDZ != null and QYZCDZ != ''"> QYZCDZ = #{QYZCDZ},</if>
+			<if test="QYZCDZBM != null and QYZCDZBM != ''"> QYZCDZBM = #{QYZCDZBM},</if>
+			<if test="XZQHDMSHENG != null and XZQHDMSHENG != ''"> XZQHDMSHENG = #{XZQHDMSHENG},</if>
+			<if test="XZQHDMSHI != null and XZQHDMSHI != ''"> XZQHDMSHI = #{XZQHDMSHI},</if>
+			<if test="XZQHDMXIAN != null and XZQHDMXIAN != ''"> XZQHDMXIAN = #{XZQHDMXIAN},</if>
+			<if test="QYXXDZXZ != null and QYXXDZXZ != ''"> QYXXDZXZ = #{QYXXDZXZ},</if>
+			<if test="QYXXDZ != null and QYXXDZ != ''"> QYXXDZ = #{QYXXDZ},</if>
+			<if test="QYYZBM != null and QYYZBM != ''"> QYYZBM = #{QYYZBM},</if>
+			<if test="QYZXJDDU != null and QYZXJDDU != ''"> QYZXJDDU = #{QYZXJDDU},</if>
+			<if test="QYZXJDFEN != null and QYZXJDFEN != ''"> QYZXJDFEN = #{QYZXJDFEN},</if>
+			<if test="QYZXJDMIAO != null and QYZXJDMIAO != ''"> QYZXJDMIAO = #{QYZXJDMIAO},</if>
+			<if test="QYZXWDDU != null and QYZXWDDU != ''"> QYZXWDDU = #{QYZXWDDU},</if>
+			<if test="QYZXWDFEN != null and QYZXWDFEN != ''"> QYZXWDFEN = #{QYZXWDFEN},</if>
+			<if test="QYZXWDMIAO != null and QYZXWDMIAO != ''"> QYZXWDMIAO = #{QYZXWDMIAO},</if>
+			<if test="HBLXRXM != null and HBLXRXM != ''"> HBLXRXM = #{HBLXRXM},</if>
+			<if test="HBLXRDH != null and HBLXRDH != ''"> HBLXRDH = #{HBLXRDH},</if>
+			<if test="HBLXRCZ != null and HBLXRCZ != ''"> HBLXRCZ = #{HBLXRCZ},</if>
+			<if test="HBLXRSJH != null and HBLXRSJH != ''"> HBLXRSJH = #{HBLXRSJH},</if>
+			<if test="HBLXRDZYX != null and HBLXRDZYX != ''"> HBLXRDZYX = #{HBLXRDZYX},</if>
+			<if test="DWPMSYTCFWZ != null and DWPMSYTCFWZ != ''"> DWPMSYTCFWZ = #{DWPMSYTCFWZ},</if>
+			<if test="QYWZ != null and QYWZ != ''"> QYWZ = #{QYWZ},</if>
+			<if test="FRDBXM != null and FRDBXM != ''"> FRDBXM = #{FRDBXM},</if>
+			<if test="QYLX != null and QYLX != ''"> QYLX = #{QYLX},</if>
+			<if test="ZDYSX != null and ZDYSX != ''"> ZDYSX = #{ZDYSX},</if>
+			<if test="JCTCNY != null and JCTCNY != ''"> JCTCNY = #{JCTCNY},</if>
+			<if test="PWXKZBH != null and PWXKZBH != ''"> PWXKZBH = #{PWXKZBH},</if>
+			<if test="PWXKZFZRQ != null and PWXKZFZRQ != ''"> PWXKZFZRQ = #{PWXKZFZRQ}</if>
+		</set> 
+		WHERE 
+			ID = #{ID}
+	</update>
+	
+
+	<!-- 添加企业固废处置厂附属表记录 -->
+	<insert id="addSolidWastefactory" parameterType="java.util.Map">
+		INSERT INTO HB_SJCJ_QY_GTFWCZC 
+			<trim prefix="(" suffixOverrides="," suffix=")">
+				<if test="ID != null">ID,</if>
+            	<if test="FWCZCLB != null">FWCZCLB,</if>
+            	<if test="LJCZFS != null">LJCZFS,</if>
+            	<if test="LJLX != null">LJLX,</if>
+            	<if test="WXFWCZFS != null">WXFWCZFS,</if>
+            	<if test="WXFWLX != null">WXFWLX,</if>
+            	<if test="YLFWCZFS != null">YLFWCZFS,</if>
+            	<if test="YLFWLX != null">YLFWLX,</if>
+            	<if test="JBID != null">JBID,</if>
+            	<if test="SYNC_IUD != null">SYNC_IUD,</if>
+            	<if test="SYNC_TIME != null">SYNC_TIME,</if>
+            	<if test="SYNC_PROCODE != null">SYNC_PROCODE,</if>
+        	</trim>
+       	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+           		<if test="ID != null">#{ID},</if>
+            	<if test="FWCZCLB != null">#{FWCZCLB},</if>
+            	<if test="LJCZFS != null">#{LJCZFS},</if>
+            	<if test="LJLX != null">#{LJLX},</if>
+            	<if test="WXFWCZFS != null">#{WXFWCZFS},</if>
+            	<if test="WXFWLX != null">#{WXFWLX},</if>
+            	<if test="YLFWCZFS != null">#{YLFWCZFS},</if>
+            	<if test="YLFWLX != null">#{YLFWLX},</if>
+            	<if test="JBID != null">#{QYID},</if>
+            	<if test="SYNC_IUD != null">#{SYNC_IUD},</if>
+            	<if test="SYNC_TIME != null">#{SYNC_TIME},</if>
+            	<if test="SYNC_PROCODE != null">#{SYNC_PROCODE},</if>
+       	</trim>
+	</insert>
+	
+	<!-- 修改企业固废处置厂 -->
+	<update id="updateSolidWastefactory" parameterType="java.util.Map">
+		UPDATE HB_SJCJ_QY_GTFWCZC
+		<set>
+			<if test="FWCZCLB != null and FWCZCLB != ''"> FWCZCLB = #{FWCZCLB}, </if>
+			<if test="LJCZFS != null and LJCZFS != ''"> LJCZFS = #{LJCZFS}, </if>
+			<if test="LJLX != null and LJLX != ''"> LJLX = #{LJLX}, </if>
+			<if test="WXFWCZFS != null and WXFWCZFS != ''"> WXFWCZFS = #{WXFWCZFS}, </if>
+			<if test="WXFWLX != null and WXFWLX != ''"> WXFWLX = #{WXFWLX}, </if>
+			<if test="YLFWCZFS != null and YLFWCZFS != ''"> YLFWCZFS = #{YLFWCZFS}, </if>
+			<if test="YLFWLX != null and YLFWLX != ''"> YLFWLX = #{YLFWLX}, </if>
+			<if test="SYNC_TIME != null and SYNC_TIME != ''"> SYNC_TIME = #{SYNC_TIME}</if>
+		</set> 
+		WHERE 
+			JBID = #{QYID}
+	</update>
+	
+	<!-- 删除企业固废处置厂 -->
+	<delete id="delSolidWastefactory" parameterType="java.util.Map">
+		DELETE FROM HB_SJCJ_QY_GTFWCZC
+	    WHERE 
+	    	JBID = #{QYID}
+ 	</delete>
+</mapper>

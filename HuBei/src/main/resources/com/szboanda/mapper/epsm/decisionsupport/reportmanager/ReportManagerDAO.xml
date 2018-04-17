@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.decisionsupport.reportmanager.dao.ReportManagerDAO">
+
+	<!-- 查询报告模版 -->
+	<select id="queryReporTemplate" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT M_ID,M_NAME,M_CREATE_TIME,M_LB,FILE_ID,SHENG,SHI,XIAN FROM HB_JCZC_BGMB
+		<where>
+			<if test="name!=null and name!=''">
+				M_NAME LIKE  '%'+ #{name} +'%'
+			</if>
+			<if test="cratetime!=null and cratetime!=''">
+				AND M_CREATE_TIME = #{cratetime}
+			</if>
+			<if test="lb!=null and lb!=''">
+				AND M_LB = #{lb}
+			</if>
+		</where>
+			ORDER BY M_CREATE_TIME DESC 
+	</select>
+	
+	<!-- 查询报告 -->
+	<select id="queryReport" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT J_ID,J_NAME,J_CREATE_TIME,J_LB,FILE_ID,SHENG,SHI,XIAN FROM HB_JCZC_BGLB
+		<where>
+			<if test="name!=null and name!=''">
+				J_NAME LIKE  '%'+ #{name} +'%'
+			</if>
+			<if test="cratetime!=null and cratetime!=''">
+				AND J_CREATE_TIME = #{cratetime}
+			</if>
+			<if test="lb!=null and lb!=''">
+				AND J_LB = #{lb}
+			</if>
+		</where>
+			ORDER BY J_CREATE_TIME DESC 
+	</select>
+	
+	<!-- 根据id查询报告模版 -->
+	<select id="queryReporTemplateById"  parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT M_ID,M_NAME,M_CREATE_TIME,M_LB,FILE_ID,SHENG,SHI,XIAN FROM HB_JCZC_BGMB  WHERE M_ID = #{ID}
+	</select>
+	
+	<!-- 根据id查询报告 -->
+	<select id="queryReportById"  parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT J_ID,J_NAME,J_CREATE_TIME,J_LB,FILE_ID,SHENG,SHI,XIAN FROM HB_JCZC_BGLB  WHERE J_ID = #{ID}
+	</select>
+	
+	<!-- 新增报告模版 -->
+	<insert id="addReporTemplate" parameterType="java.util.Map">
+		INSERT INTO HB_JCZC_BGMB 
+			<trim prefix="(" suffixOverrides="," suffix=")">
+				<if test="M_ID != null">M_ID,</if>
+            	<if test="M_NAME != null">M_NAME,</if>
+            	<if test="M_CREATE_TIME != null">M_CREATE_TIME,</if>
+            	<if test="M_LB != null">M_LB,</if>
+            	<if test="FILE_ID != null">FILE_ID,</if>
+            	<if test="SHENG != null">SHENG,</if>
+            	<if test="SHI != null">SHI,</if>
+            	<if test="XIAN != null">XIAN,</if>
+        	</trim>
+       	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+           		<if test="M_ID != null">#{M_ID},</if>
+            	<if test="M_NAME != null">#{M_NAME},</if>
+            	<if test="M_CREATE_TIME != null">#{M_CREATE_TIME},</if>
+            	<if test="M_LB != null">#{M_LB},</if>
+            	<if test="FILE_ID != null">#{FILE_ID},</if>
+            	<if test="SHENG != null">#{SHENG},</if>
+            	<if test="SHI != null">#{SHI},</if>
+            	<if test="XIAN != null">#{XIAN},</if>
+       	</trim>
+	</insert>
+	
+	<!-- 新增报告 -->
+	<insert id="addReport" parameterType="java.util.Map">
+		INSERT INTO HB_JCZC_BGLB 
+			<trim prefix="(" suffixOverrides="," suffix=")">
+				<if test="J_ID != null">J_ID,</if>
+            	<if test="J_NAME != null">J_NAME,</if>
+            	<if test="J_CREATE_TIME != null">J_CREATE_TIME,</if>
+            	<if test="J_LB != null">J_LB,</if>
+            	<if test="FILE_ID != null">FILE_ID,</if>
+            	<if test="SHENG != null">SHENG,</if>
+            	<if test="SHI != null">SHI,</if>
+            	<if test="XIAN != null">XIAN,</if>
+        	</trim>
+       	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+           		<if test="J_ID != null">#{J_ID},</if>
+            	<if test="J_NAME != null">#{J_NAME},</if>
+            	<if test="J_CREATE_TIME != null">#{J_CREATE_TIME},</if>
+            	<if test="J_LB != null">#{J_LB},</if>
+            	<if test="FILE_ID != null">#{FILE_ID},</if>
+            	<if test="SHENG != null">#{SHENG},</if>
+            	<if test="SHI != null">#{SHI},</if>
+            	<if test="XIAN != null">#{XIAN},</if>
+       	</trim>
+	</insert>
+	
+	<!-- 修改报告模版 -->
+	<update id="updateReporTemplate" parameterType="java.util.Map">
+		UPDATE HB_JCZC_BGMB
+		<set>
+			<if test="M_NAME != null and M_NAME != ''"> M_NAME = #{M_NAME}, </if>
+			<if test="M_CREATE_TIME != null and M_CREATE_TIME != ''"> M_CREATE_TIME = #{M_CREATE_TIME}, </if>
+			<if test="M_LB != null and M_LB != ''"> M_LB = #{M_LB}, </if>
+			<if test="FILE_ID != null and FILE_ID != ''"> FILE_ID = #{FILE_ID}, </if>
+			<if test="SHENG != null and SHENG != ''"> SHENG = #{SHENG}, </if>
+			<if test="SHI != null and SHI != ''"> SHI = #{SHI}, </if>
+			<if test="XIAN != null and XIAN != ''"> XIAN = #{XIAN}</if>
+		</set> 
+		WHERE 
+			M_ID = #{ID}
+	</update>
+	
+	<!-- 修改报告 -->
+	<update id="updateReport" parameterType="java.util.Map">
+		UPDATE HB_JCZC_BGLB
+		<set>
+			<if test="J_NAME != null and J_NAME != ''"> J_NAME = #{J_NAME}, </if>
+			<if test="J_CREATE_TIME != null and J_CREATE_TIME != ''"> J_CREATE_TIME = #{J_CREATE_TIME}, </if>
+			<if test="J_LB != null and J_LB != ''"> J_LB = #{J_LB}, </if>
+			<if test="FILE_ID != null and FILE_ID != ''"> FILE_ID = #{FILE_ID}, </if>
+			<if test="SHENG != null and SHENG != ''"> SHENG = #{SHENG}, </if>
+			<if test="SHI != null and SHI != ''"> SHI = #{SHI}, </if>
+			<if test="XIAN != null and XIAN != ''"> XIAN = #{XIAN}</if>
+		</set>  
+		WHERE 
+			J_ID = #{ID}
+	</update>
+	
+	<!-- 删除报告模版 -->
+	<delete id="delReporTemplate" parameterType="java.util.Map">
+		DELETE FROM HB_JCZC_BGMB
+	    WHERE 
+	    	M_ID = #{ID}
+ 	</delete>
+ 	
+ 	<!-- 删除报告 -->
+	<delete id="delReport" parameterType="java.util.Map">
+		DELETE FROM HB_JCZC_BGLB
+	    WHERE 
+	    	J_ID = #{ID}
+ 	</delete>
+</mapper>

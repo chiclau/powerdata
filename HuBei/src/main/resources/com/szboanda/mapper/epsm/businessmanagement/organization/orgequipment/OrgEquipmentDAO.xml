@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.businessmanagement.organization.orgequipment.dao.OrgEquipmentDAO">
+	<!-- 查询监测机构设备 -->
+	<select id="findOrgEquipment" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			SBGL.JCJGSB_ID,
+			SBGL.JCJGSB_SBBH,
+			SBGL.JCJGSB_SBMC,
+			SBGL.JCJGSB_JCSBXH,
+			SBGL.JCJGSB_SCCJ,
+			SBGL.JCJGSB_GDZCBH,
+			SBGL.JCJGSB_LXR,
+			SBGL.JCJGSB_LXRDH,
+			SBGL.JCJGSB_RYBH,
+			SBGL.JCJGSB_JGBH,
+			SBGL.JCJGSB_TYPE
+		FROM
+			HB_YWGL_JCJG_SBGL SBGL,
+			HB_YWGL_JCJG_JGGL JGGL
+		WHERE
+			SBGL.JCJGSB_JGBH = JGGL.JCJG_ID
+			AND JCJG_SHENG = #{JCJG_SHENG}
+			AND JCJG_SHI = #{JCJG_SHI}
+			AND JCJG_XIAN = #{JCJG_XIAN}
+			<if test="JCJGSB_SBBH != null and JCJGSB_SBBH != ''">
+				AND SBGL.JCJGSB_SBBH LIKE #{JCJGSB_SBBH}
+			</if>
+			<if test="JCJGSB_SBMC != null and JCJGSB_SBMC != ''">
+				AND SBGL.JCJGSB_SBMC LIKE #{JCJGSB_SBMC}
+			</if>
+			<if test="JCJGSB_JCSBXH != null and JCJGSB_JCSBXH != ''">
+				AND SBGL.JCJGSB_JCSBXH LIKE #{JCJGSB_JCSBXH}
+			</if>
+			<if test="JCJGSB_SCCJ != null and JCJGSB_SCCJ != ''">
+				AND SBGL.JCJGSB_SCCJ LIKE #{JCJGSB_SCCJ}
+			</if>
+		ORDER BY
+			SBGL.JCJGSB_ID
+	</select>
+	
+	<!-- 根据ID查询监测机构设备 -->
+	<select id="getOrgEquipmentById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			SBGL.JCJGSB_ID,
+			SBGL.JCJGSB_SBBH,
+			SBGL.JCJGSB_SBMC,
+			SBGL.JCJGSB_JCSBXH,
+			SBGL.JCJGSB_SCCJ,
+			SBGL.JCJGSB_GDZCBH,
+			SBGL.JCJGSB_LXR,
+			SBGL.JCJGSB_LXRDH,
+			SBGL.JCJGSB_RYBH,
+			SBGL.JCJGSB_JGBH,
+			SBGL.JCJGSB_TYPE
+		FROM
+			HB_YWGL_JCJG_SBGL SBGL
+		WHERE 
+			SBGL.JCJGSB_ID = #{JCJGSB_ID}
+	</select>
+	
+	<!-- 添加监测机构设备 -->
+	<insert id="addOrgEquipment" parameterType="java.util.Map">
+		INSERT INTO HB_YWGL_JCJG_SBGL 
+		(
+			JCJGSB_ID,
+			JCJGSB_SBBH,
+			JCJGSB_SBMC,
+			JCJGSB_JCSBXH,
+			JCJGSB_SCCJ,
+			JCJGSB_GDZCBH,
+			JCJGSB_LXR,
+			JCJGSB_LXRDH,
+			JCJGSB_RYBH,
+			JCJGSB_JGBH,
+			JCJGSB_TYPE
+		)
+		VALUES
+		(
+			#{JCJGSB_ID},
+			#{JCJGSB_SBBH},
+			#{JCJGSB_SBMC},
+			#{JCJGSB_JCSBXH},
+			#{JCJGSB_SCCJ},
+			#{JCJGSB_GDZCBH},
+			#{JCJGSB_LXR},
+			#{JCJGSB_LXRDH},
+			#{JCJGSB_RYBH},
+			#{JCJGSB_JGBH},
+			#{JCJGSB_TYPE}
+		)
+	</insert>
+	
+	<!-- 更新监测机构设备 -->
+	<update id="updateOrgEquipment" parameterType="java.util.Map">
+		UPDATE HB_YWGL_JCJG_SBGL
+		<set>
+			<if test="JCJGSB_SBBH != null">
+				JCJGSB_SBBH = #{JCJGSB_SBBH},
+			</if>
+			<if test="JCJGSB_SBMC != null">
+				JCJGSB_SBMC = #{JCJGSB_SBMC},
+			</if>
+			<if test="JCJGSB_JCSBXH != null">
+				JCJGSB_JCSBXH = #{JCJGSB_JCSBXH},
+			</if>
+			<if test="JCJGSB_SCCJ != null">
+				JCJGSB_SCCJ = #{JCJGSB_SCCJ},
+			</if>
+			<if test="JCJGSB_GDZCBH != null">
+				JCJGSB_GDZCBH = #{JCJGSB_GDZCBH},
+			</if>
+			<if test="JCJGSB_LXR != null">
+				JCJGSB_LXR = #{JCJGSB_LXR},
+			</if>
+			<if test="JCJGSB_LXRDH != null">
+				JCJGSB_LXRDH = #{JCJGSB_LXRDH},
+			</if>
+			<if test="JCJGSB_RYBH != null">
+				JCJGSB_RYBH = #{JCJGSB_RYBH},
+			</if>
+			<if test="JCJGSB_JGBH != null">
+				JCJGSB_JGBH = #{JCJGSB_JGBH},
+			</if>
+			<if test="JCJGSB_TYPE != null">
+				JCJGSB_TYPE = #{JCJGSB_TYPE}
+			</if>
+		</set>
+		WHERE
+			JCJGSB_ID = #{JCJGSB_ID}
+	</update>
+	
+	<!-- 删除监测机构设备 -->
+	<delete id="delOrgEquipment" parameterType="java.lang.String">
+		DELETE FROM 
+			HB_YWGL_JCJG_SBGL
+		WHERE 
+			JCJGSB_ID = #{JCJGSB_ID}
+	</delete>
+	
+	<!-- 查询监测机构设备的监测项目 -->
+	<select id="findProject" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			JCJG_SBJCX_ID,
+			JCJG_SBJCX_JCCPLB,
+			JCJG_SBJCX_JCXM,
+			JCJG_SBJCX_FFYL,
+			JCJG_SBJCX_CZRYID,
+			JCJG_SBJCX_SBID,
+			JCJG_SBJCX_CZRY,
+			JCJG_SBJCX_SBMC
+		FROM
+			HB_YWGL_JCJG_SBGL_JCXM
+		WHERE
+			JCJG_SBJCX_SBID = #{JCJG_SBJCX_SBID}
+		ORDER BY
+			JCJG_SBJCX_ID
+	</select>
+	
+	<!-- 根据ID查询监测机构设备的监测项目 -->
+	<select id="getProjectById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			JCJG_SBJCX_ID,
+			JCJG_SBJCX_JCCPLB,
+			JCJG_SBJCX_JCXM,
+			JCJG_SBJCX_FFYL,
+			JCJG_SBJCX_CZRYID,
+			JCJG_SBJCX_SBID,
+			JCJG_SBJCX_CZRY,
+			JCJG_SBJCX_SBMC
+		FROM
+			HB_YWGL_JCJG_SBGL_JCXM
+		WHERE
+			JCJG_SBJCX_ID = #{JCJG_SBJCX_ID}
+	</select>
+	
+	<!-- 添加监测机构设备的监测项目 -->
+	<insert id="addProject" parameterType="java.util.Map">
+		INSERT INTO HB_YWGL_JCJG_SBGL_JCXM 
+		(
+			JCJG_SBJCX_ID,
+			JCJG_SBJCX_JCCPLB,
+			JCJG_SBJCX_JCXM,
+			JCJG_SBJCX_FFYL,
+			JCJG_SBJCX_CZRYID,
+			JCJG_SBJCX_SBID,
+			JCJG_SBJCX_CZRY,
+			JCJG_SBJCX_SBMC
+		)
+		VALUES
+		(
+			#{JCJG_SBJCX_ID},
+			#{JCJG_SBJCX_JCCPLB},
+			#{JCJG_SBJCX_JCXM},
+			#{JCJG_SBJCX_FFYL},
+			#{JCJG_SBJCX_CZRYID},
+			#{JCJG_SBJCX_SBID},
+			#{JCJG_SBJCX_CZRY},
+			#{JCJG_SBJCX_SBMC}
+		)
+	</insert>
+	
+	<!-- 更新监测机构设备的监测项目 -->
+	<update id="updateProject" parameterType="java.util.Map">
+		UPDATE HB_YWGL_JCJG_SBGL_JCXM
+		<set>
+			<if test="JCJG_SBJCX_JCCPLB != null">
+				JCJG_SBJCX_JCCPLB = #{JCJG_SBJCX_JCCPLB},
+			</if>
+			<if test="JCJG_SBJCX_JCXM != null">
+				JCJG_SBJCX_JCXM = #{JCJG_SBJCX_JCXM},
+			</if>
+			<if test="JCJG_SBJCX_FFYL != null">
+				JCJG_SBJCX_FFYL = #{JCJG_SBJCX_FFYL},
+			</if>
+			<if test="JCJG_SBJCX_CZRYID != null">
+				JCJG_SBJCX_CZRYID = #{JCJG_SBJCX_CZRYID},
+			</if>
+			<if test="JCJG_SBJCX_SBID != null">
+				JCJG_SBJCX_SBID = #{JCJG_SBJCX_SBID},
+			</if>
+			<if test="JCJG_SBJCX_CZRY != null">
+				JCJG_SBJCX_CZRY = #{JCJG_SBJCX_CZRY},
+			</if>
+			<if test="JCJG_SBJCX_SBMC != null">
+				JCJG_SBJCX_SBMC = #{JCJG_SBJCX_SBMC},
+			</if>
+		</set>
+		WHERE
+			JCJG_SBJCX_ID = #{JCJG_SBJCX_ID}
+	</update>
+	
+	<!-- 删除监测机构设备的监测项目 -->
+	<delete id="delProject" parameterType="java.lang.String">
+		DELETE FROM 
+			HB_YWGL_JCJG_SBGL_JCXM
+		WHERE 
+			JCJG_SBJCX_ID = #{JCJG_SBJCX_ID}
+	</delete>
+</mapper>

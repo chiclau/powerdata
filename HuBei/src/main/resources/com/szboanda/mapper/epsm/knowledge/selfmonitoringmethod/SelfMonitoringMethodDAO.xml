@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.knowledge.selfmonitoringmethod.dao.SelfMonitoringMethodDAO">
+	<select id="findSelfMonitoringMethod" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			jbxx.ID id,
+			FFMC ffmc,
+			FFBZMC ffbzmc,
+			FFBZBH ffbzbh,
+			FFBZFL ffbzfl,
+			FFBZDT ffbzdt,
+			CONVERT(varchar(12) , FBRQ, 23 ) fbrq,
+			CONVERT(varchar(12) , SSRQ, 23 ) ssrq,
+			JCXMMC jcxmmc,
+			CYFL cyfl,
+			QYL qyl,
+			QYDW qydw,
+			DRTJ drtj,
+			JYL jyl,
+			JYDW jydw,
+			JCND jcnd,
+			JCX jcx,
+			CDXX cdxx,
+			CDSX cdsx,
+			CDFW cdfw,
+			JCDW jcdw,
+			FFYL ffyl,
+			'CZ' cz
+		FROM
+			HB_ZXJCZSK_JCFFK_JBXX jbxx
+		LEFT JOIN HB_ZXJCZSK_JCFFK_JCXM_GXB gxb ON gxb.JCFFID = jbxx.ID
+		LEFT JOIN HB_ZXJCZSK_JCFFK_BZXX bzxx ON jbxx.ID = bzxx.JCXXID
+		<where>
+			<if test="ffmc!=null and ffmc!=''">
+				jbxx.FFMC LIKE #{ffmc}
+			</if>
+			<if test="ffbzmc!=null and ffbzmc!=''">
+				AND jbxx.FFBZMC LIKE #{ffbzmc}
+			</if>
+			<if test="ffbzbh!=null and ffbzbh!=''">
+				AND jbxx.FFBZBH LIKE #{ffbzbh}
+			</if>
+			<if test="ffbzfl!=null and ffbzfl!=''">
+				AND jbxx.FFBZFL LIKE #{ffbzfl}
+			</if>
+			<if test="jcxmmc!=null and jcxmmc!=''">
+				AND gxb.JCXMMC LIKE #{jcxmmc}
+			</if>
+			<if test="id!=null and id!=''">
+				AND jbxx.ID = #{id}
+			</if>
+		</where>
+		ORDER BY jbxx.FBRQ DESC
+	</select>
+</mapper>

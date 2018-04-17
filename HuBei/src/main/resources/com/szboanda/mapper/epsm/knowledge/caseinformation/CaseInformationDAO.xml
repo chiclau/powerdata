@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.knowledge.caseinformation.dao.CaseInformationDAO">
+	<select id="findCaseInformation" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			ZBALID zbalid,
+			ALMC almc,
+			ALLB allb,
+			SGMC sgmc,
+			FSDD fsdd,
+			WRW wrw,
+			ZYWRW zywrw,
+			YXFW yxfw,
+			QYMC qymc,
+			ALDD aldd,
+			SGFSSJ sgfssj,
+			ALSCSJ alscsj,
+			JCGCMS jcgcms,
+			JCJG jcjg,
+			HYLB1 hylb1,
+			HYLB2 hylb2,
+			HYLB3 hylb3,
+			HYLB4 hylb4,
+			ALZL alzl
+		FROM
+			HB_ZXJCZSK_JCFFK_ZBALXX
+		<where>
+			<if test="almc!=null and almc!=''">
+				ALMC LIKE #{almc}
+			</if>
+			<if test="allb!=null and allb!=''">
+				AND ALLB LIKE #{allb}
+			</if>
+			<if test="sgmc!=null and sgmc!=''">
+				AND SGMC LIKE #{sgmc}
+			</if>
+			<if test="fsdd!=null and fsdd!=''">
+				AND fsdd LIKE #{fsdd}
+			</if>
+			<if test="zbalid!=null and zbalid!=''">
+				AND ZBALID = #{zbalid}
+			</if>
+			<if test="xxlb!=null and xxlb!=''">
+				AND XXLB = #{xxlb}
+			</if>
+		</where>
+		ORDER BY SGFSSJ DESC
+	</select>
+	
+	<!-- 删除案例信息库 -->
+	<delete id="delCaseInformation" parameterType="java.util.Map">
+		DELETE FROM HB_ZXJCZSK_JCFFK_ZBALXX
+			WHERE 
+		ZBALID IN
+		<foreach collection="ids" item="zbalid" open="(" close=")"
+			separator=",">
+			#{zbalid}
+		</foreach>
+	</delete>
+	
+	<!-- 添加案例信息库 -->
+	<insert id="addCaseInformation" parameterType="java.util.Map">
+		INSERT INTO HB_ZXJCZSK_JCFFK_ZBALXX
+			(
+				ZBALID,
+				ALMC,
+				ALLB,
+				SGMC,
+				FSDD,
+				WRW,
+				ZYWRW,
+				YXFW,
+				QYMC,
+				ALDD,
+				SGFSSJ,
+				ALSCSJ,
+				JCGCMS,
+				JCJG,
+				HYLB1,
+				HYLB2,
+				HYLB3,
+				HYLB4,
+				ALZL,
+				SHENG,
+				SHI,
+				XIAN,
+				XXLB
+			)
+		VALUES
+			(
+				#{zbalid},
+				#{almc},
+				#{allb},
+				#{sgmc},
+				#{fsdd},
+				#{wrw},
+				#{zywrw},
+				#{yxfw},
+				#{qymc},
+				#{aldd},
+				#{sgfssj},
+				#{alscsj},
+				#{jcgcms},
+				#{jcjg},
+				#{hylb1},
+				#{hylb2},
+				#{hylb3},
+				#{hylb4},
+				#{alzl},
+				#{sheng},
+				#{shi},
+				#{xian},
+				#{xxlb}
+			)
+	</insert>
+	
+	<!-- 修改案例信息库 -->
+	<update id="updateCaseInformation" parameterType="java.util.Map">
+		UPDATE HB_ZXJCZSK_JCFFK_ZBALXX 
+			SET
+				ALMC = #{almc},
+				ALLB = #{allb},
+				SGMC = #{sgmc},
+				FSDD = #{fsdd},
+				WRW = #{wrw},
+				ZYWRW = #{zywrw},
+				YXFW = #{yxfw},
+				QYMC = #{qymc},
+				ALDD = #{aldd},
+				SGFSSJ = #{sgfssj},
+				ALSCSJ = #{alscsj},
+				JCGCMS = #{jcgcms},
+				JCJG = #{jcjg},
+				HYLB1 = #{hylb1},
+				HYLB2 = #{hylb2},
+				HYLB3 = #{hylb3},
+				HYLB4 = #{hylb4},
+				ALZL = #{alzl}
+			WHERE ZBALID = #{zbalid}
+	</update>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.emissionstandard.standardmanagement.dao.StandardManagementDAO">
+	<!-- 查询未监测情况列表 -->
+	<select id="queryNotMonitored" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT ID,QYMC,BJCLX,BJCMC,BJCKSSJ,BJCJZSJ,BJCYY,
+		(
+				CASE BJCJLB.SFTC
+				WHEN '1' THEN '是'
+				WHEN '0' THEN '否'
+				END
+		) SFTC,
+		BJCYYPZ FROM HB_SJCJ_QY_BJCJLB  BJCJLB
+		<where>
+			<if test="qymc != null and qymc != ''">
+				BJCJLB.QYMC like '%'+ #{qymc} +'%'
+			</if>
+			<if test="bjcmc != null and bjcmc != ''">
+				AND BJCJLB.BJCMC  like '%'+ #{bjcmc} +'%'
+			</if>
+			<if test="bjckssj != null">
+				AND BJCJLB.BJCKSSJ <![CDATA[ >= ]]> #{bjckssj} 
+			</if>
+			<if test="bjcjzsj != null">
+				AND BJCJLB.BJCJZSJ <![CDATA[ <= ]]> #{bjcjzsj}
+			</if>
+		</where>
+			ORDER BY BJCJLB.BJCKSSJ DESC
+	</select>
+	
+	<!-- 监测点所属标准 -->
+	<select id="queryPointStandard" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  GX_ID,BZMC,WRYLB,JCDMC,QYMC,SHENG,SHI,XIAN,QSSJ,JSSJ  FROM HB_SJCJ_JCXX_DIAN_BZ_GX_V  GX
+		LEFT JOIN(
+			SELECT FQ.JCD_ID,FQ.JCDMC,QY.QYMC,SHENG,SHI,XIAN FROM  HB_SJCJ_QY_JCXX_FQ_DIAN_V  FQ
+			LEFT JOIN  HB_SJCJ_QY_JBXX QY ON FQ.QYBH=QY.ID
+				UNION ALL 
+			SELECT FS.JCD_ID,JCDMC,QY.QYMC,SHENG,SHI,XIAN  FROM HB_SJCJ_QY_JCXX_FS_DIAN_V FS 
+			LEFT JOIN  HB_SJCJ_QY_JBXX QY ON FS.QYBH=QY.ID
+				UNION ALL
+			SELECT JCD_ID,JCDMC,QYMC,SHENG,SHI,XIAN FROM HB_SJCJ_QY_JCXX_WZZ_DIAN_V
+			    UNION ALL 
+			SELECT JCD_ID,JCDMC,QYMC,SHENG,SHI,XIAN FROM  HB_SJCJ_QY_JCXX_ZS_DIAN_V
+				UNION ALL 
+			SELECT JCD_ID,JCDMC,QYMC,SHENG,SHI,XIAN FROM  HB_SJCJ_QY_JCXX_ZB_DIAN_V
+		) JCD  ON GX.JCD_ID=JCD.JCD_ID
+		<where>
+			<if test="bzmc != null and bzmc != ''">
+				BZMC like '%'+ #{bzmc} +'%'
+			</if>
+			<if test="bzfl != null and bzfl != ''">
+				AND WRYLB  like '%'+ #{bzfl} +'%'
+			</if>
+			<if test="sheng != null and sheng != ''">
+				AND SHENG = #{sheng} 
+			</if>
+			<if test="shi != null and shi != ''">
+				AND SHI =  #{shi}
+			</if>
+			<if test="xian != null and xian != ''">
+				AND XIAN = #{xian}
+			</if>
+		</where>
+			ORDER BY QSSJ DESC
+	</select>
+</mapper>

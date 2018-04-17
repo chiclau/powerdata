@@ -1,0 +1,79 @@
+@charset "utf-8";
+/*--
+Styles Index
+=======
+1.0 Reset
+2.0 Common style
+3.0 Main structure
+--*/
+
+/* -- 1.0 Reset -- */
+body,ul,dl,dd,h1,h2,h3,h4,h5,h6,p,form,input,textarea,select{margin:0;padding:0;font:12px 'Microsoft YaHei',Arial,Helvetica,sans-serif;}
+ul,ol{padding-left:0;list-style-type:none;}
+img{border:0 none;}
+em,i{font-style:normal;}
+a:link{color:#4F14F7; text-decoration: none; -webkit-transition: all .2s ease; transition: all .2s ease;}
+a:visited{color:#551a8b;}
+a:hover{color:#FF9900;text-decoration: underline;}
+a:active{color: #cc0000;}
+/* -- 2.0 Common style -- */
+.dn{display:none;}
+.db{display:block;}
+.fl{float:left;}
+.fr{float:right;}
+.rel{position: relative;}
+.abs{position: absolute;}
+.gap{height: 10px;width: 100%;}
+.auto{margin: 0 auto;}
+.clear { clear: both;}
+.clearfix:before, .clearfix:after { content: '\0020'; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1 } 
+
+/*复选框*/
+.checkboxLog{display:inline-block;}
+.checkboxLog .checkbox-icon{display:inline-block; width: 15px; height: 15px; background: url(../images/checkbox.png) no-repeat; margin-right: 5px;}
+.checkboxLog .checkbox-icon.on{background: url(../images/checkbox_t.png) no-repeat;}
+.checkboxLog span{vertical-align: middle;}
+
+.err {
+	color: #ff0000 !important;
+	background: url(../../../../resources/login/images/login_icon_err.png) no-repeat left center;
+	padding-left: 20px;
+	margin-top: 5px;
+}
+
+/* -- 3.0 Main structure -- */
+
+/*登录页面*/
+html,body{height: 100%;}
+.wrap{height: 100%; /*background: url(../images/login_bg.png) no-repeat center;*/}
+.login-logo{/*color: white; font-size: 30px; line-height: 57px;*/ background: url(../images/login_logo.png) no-repeat left center; /*padding-left: 68px;*/ position: absolute; left: 94px; top: 63px; width: 642px; height: 59px;}
+.login-tools{color: #7ca3e1; position: absolute; right: 136px; top: 88px;}
+.login-tools a{color: #7ca3e1;}
+.login-tools a:first-child{color: #ffcc19;}
+.login-font{background: url(../images/login_font.png) no-repeat; position: absolute; left: 10%; top: 50%; width: 465px; height: 153px; /*margin-left: -450px;*/ margin-top: -76px;}
+.login-box{/*background: url(../images/login_bg_rx.jpg) repeat-x;*/ height: 575px;}
+.login-inner{min-width: 1024px; /*max-width: 1366px; background: url(../images/login_bg.png) no-repeat center;*/ height: 100%; position: relative;}
+.log-box{width: 370px; position: absolute; right: 5%; top: 120px; /*margin-left: 50px; margin: 120px 130px 0 0; padding: 3px 6px 0;*/ background: url(../images/log_box_bg.png) repeat;}
+.log-box .log-br{background: url(../images/log_bot_line.png) no-repeat; width: 100%; height:14px; position: absolute; left: 0; bottom: -14px;}
+.log-box h1{font-size: 24px; padding-left: 45px; line-height: 51px; border-top: 5px solid #e2a719; border-bottom: 1px solid #1e4c7a; color: #fff; position: relative;}
+.log-box h1 a{font-size: 14px; color: #e2a719; position: absolute; right: 40px; top: 18px; line-height: normal;}
+.log-box h1 i{position: absolute; background: url(../images/img_erm.png) no-repeat; width: 50px; height: 50px; right: 0; top: 0;}
+.log-box ul{width: 288px; margin: 30px auto 0;}
+.log-box ul li{margin-bottom: 15px; overflow: hidden;}
+.log-box ul li span{color: #fff;}
+.log-box ul li input.login-text{ border: 1px solid #c4c4c4; height: 38px; line-height: 38px; padding-left: 40px; width: 280px;}
+.log-box ul li input.input-txt-user{background: white url(../images/input_txt_user.png) no-repeat 10px center;}
+.log-box ul li input.input-txt-pw{background: white url(../images/input_txt_pw.png) no-repeat 10px center;}
+.log-box ul li input.btn{background: transparent url(../images/login_btn.jpg) no-repeat; border: none; width: 288px; height: 44px; cursor: pointer;}
+.log-box ul li input.J_Yzm{width: 120px; float: left; background: url(../images/login_icon_yzm.png) no-repeat 8px center;}
+.log-box ul li input{outline: none;}
+.log-box ul li input:focus.login-text{border: 1px solid #e2a719;}
+.log-box ul li input:focus.input-txt-user{background-image: url(../images/input_txt_user_on.png);}
+.log-box ul li input:focus.input-txt-pw{background-image: url(../images/input_txt_pw_on.png);}
+.login-fot{position: absolute; bottom: 30px; left: 0; right: 0;}
+.login-fot p{line-height: 2; text-align: center; color: #fff;}
+
+.feiniao{position:absolute; right: 0; top: 0; width: 500px; height: 260px; z-index:-1;}
+.yun{position:absolute; left: 0; top: 0; width: 1200px; height: 600px; z-index:-1; }

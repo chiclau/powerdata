@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<context:property-placeholder location="classpath:/conf/redis.properties" ignore-unresolvable="true" />
+    
+    <beans:bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+        <beans:property name="maxIdle" value="${redis.maxIdle}"></beans:property>
+        <beans:property name="maxTotal" value="${redis.maxTotal}"></beans:property>
+        <beans:property name="maxWaitMillis" value="${redis.maxWaitMillis}"></beans:property>
+        <beans:property name="testOnBorrow" value="${redis.testOnBorrow}"></beans:property>
+    </beans:bean>
+    
+    <beans:bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+    	<beans:property name="hostName" value="${redis.host}" />
+    	<beans:property name="port" value="${redis.port}" />
+    	<!-- 
+    	<beans:property name="password" value="${redis.pass}" />
+    	 -->
+    	<beans:property name="poolConfig" ref="poolConfig" />
+    </beans:bean>
+    
+    <beans:bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">  
+        <beans:property name="connectionFactory" ref="connectionFactory" />  
+    </beans:bean>
+    
+    <beans:bean id="RedisDAOImpl" class="com.szboanda.platform.cache.database.impl.redis.RedisDAOImpl">
+    	<beans:property name="redisTemplate" ref="redisTemplate" /> 
+    </beans:bean>
+	
+</beans:beans>

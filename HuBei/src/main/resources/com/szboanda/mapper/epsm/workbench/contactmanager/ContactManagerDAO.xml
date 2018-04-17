@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.workbench.contactmanager.dao.ContactManagerDAO">
+	
+	<sql id="allColumns">
+		ID,LXRXM,LXRMC,ZJ,SJ,CZ,DZYX,YHLB,SHENG,SHI,XIAN
+	</sql>
+	
+	<!-- 查询联系人 -->
+	<select id="queryContacts" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT <include refid="allColumns"/> FROM HB_GZT_WDLXR_LXRGL 
+		<where>
+			<if test="lxrxm!=null and lxrxm!=''">
+				LXRXM LIKE  '%'+ #{lxrxm} +'%'
+			</if>
+			<if test="lxrmc!=null and lxrmc!=''">
+				AND LXRMC LIKE '%'+ #{lxrmc} +'%'
+			</if>
+			<if test="yhlb!=null and yhlb!=''">
+				AND YHLB LIKE '%'+ #{yhlb} +'%'
+			</if>
+		</where>
+			ORDER BY LXRXM 
+	</select>
+	
+	<select id="queryContactsById"  parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT <include refid="allColumns"/> FROM HB_GZT_WDLXR_LXRGL  WHERE ID = #{ID}
+	</select>
+	
+	<!-- 新增联系人 -->
+	<insert id="addContacts" parameterType="java.util.Map">
+		INSERT INTO HB_GZT_WDLXR_LXRGL 
+			<trim prefix="(" suffixOverrides="," suffix=")">
+				<if test="ID != null">ID,</if>
+            	<if test="LXRXM != null">LXRXM,</if>
+            	<if test="LXRMC != null">LXRMC,</if>
+            	<if test="ZJ != null">ZJ,</if>
+            	<if test="SJ != null">SJ,</if>
+            	<if test="CZ != null">CZ,</if>
+            	<if test="DZYX != null">DZYX,</if>
+            	<if test="YHLB != null">YHLB,</if>
+            	<if test="SHENG != null">SHENG,</if>
+            	<if test="SHI != null">SHI,</if>
+            	<if test="XIAN != null">XIAN,</if>
+        	</trim>
+       	<trim prefix=" VALUES(" suffixOverrides="," suffix=")">
+           		<if test="ID != null">#{ID},</if>
+            	<if test="LXRXM != null">#{LXRXM},</if>
+            	<if test="LXRMC != null">#{LXRMC},</if>
+            	<if test="ZJ != null">#{ZJ},</if>
+            	<if test="SJ != null">#{SJ},</if>
+            	<if test="CZ != null">#{CZ},</if>
+            	<if test="DZYX != null">#{DZYX},</if>
+            	<if test="YHLB != null">#{YHLB},</if>
+            	<if test="SHENG != null">#{SHENG},</if>
+            	<if test="SHI != null">#{SHI},</if>
+            	<if test="XIAN != null">#{XIAN},</if>
+       	</trim>
+	</insert>
+	
+	<!-- 修改联系人 -->
+	<update id="updateContacts" parameterType="java.util.Map">
+		UPDATE HB_GZT_WDLXR_LXRGL
+		<set>
+			<if test="LXRXM != null and LXRXM != ''"> LXRXM = #{LXRXM}, </if>
+			<if test="LXRMC != null and LXRMC != ''"> LXRMC = #{LXRMC}, </if>
+			<if test="ZJ != null and ZJ != ''"> ZJ = #{ZJ}, </if>
+			<if test="SJ != null and SJ != ''"> SJ = #{SJ}, </if>
+			<if test="CZ != null and CZ != ''"> CZ = #{CZ}, </if>
+			<if test="DZYX != null and DZYX != ''"> DZYX = #{DZYX}, </if>
+			<if test="YHLB != null and YHLB != ''"> YHLB = #{YHLB}, </if>
+			<if test="SHENG != null and SHENG != ''"> SHENG = #{SHENG}, </if>
+			<if test="SHI != null and SHI != ''"> SHI = #{SHI}, </if>
+			<if test="XIAN != null and XIAN != ''"> XIAN = #{XIAN}</if>
+		</set> 
+		WHERE 
+			ID = #{ID}
+	</update>
+	
+	<!-- 删除联系人 -->
+	<delete id="delContacts" parameterType="java.util.Map">
+		DELETE FROM HB_GZT_WDLXR_LXRGL
+	    WHERE 
+	    	ID = #{ID}
+ 	</delete>
+</mapper>

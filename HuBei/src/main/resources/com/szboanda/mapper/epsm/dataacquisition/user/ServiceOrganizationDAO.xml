@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.dataacquisition.user.dao.ServiceOrganizationDAO">
+	<!-- 查询服务机构 -->
+	<select id="findServiceOrganization" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			JBXX.JBXX_ID,
+			JBXX.JBXX_NAME,
+			JBXX.JBXX_GSCLSJ,
+			JBXX.JBXX_SFYSJGS,
+			JBXX.JBXX_FDDBR,
+			JBXX.JBXX_JSRYS,
+			JBXX.JBXX_LXR,
+			JBXX.JBXX_CZHM,
+			JBXX.JBXX_QYFRDM,
+			JBXX.JBXX_SHFWM,
+			JBXX.JBXX_DWJJ,
+			JBXX.JBXX_QYYYZZ,
+			JBXX.JBXX_ZCZJ,
+			JBXX.JBXX_GSSZD,
+			JBXX.JBXX_JGDZ,
+			JBXX.JBXX_LXDH,
+			JBXX.JBXX_DZYX,
+			JBXX.JBXX_BGDH,
+			JBXX.JBXX_QYYZBM,
+			JBXX.JBXX_SHZT,
+			JBXX.JBXX_SFYX,
+			JBXX.JBXX_JCJG,
+			JBXX.JBXX_YYJG,
+			JBXX.JBXX_JCSB,
+			JBXX.JBXX_JCS,
+			JBXX.JBXX_SHENG,
+			JBXX.JBXX_SHI,
+			JBXX.JBXX_XIAN,
+			JBXX.USERDLMC,
+			JBXX.SJGSMC,
+			JBXX.HB_SHENG,
+			JBXX.JBXX_JGZT,
+			JBXX.JBXX_WTXQ,
+			JBXX.JBXX_SFCZWT,
+			JCJG.JCJG_SFBA,
+			JCJG.JCJG_BAH,
+			YH.YHID
+		FROM
+			HB_SJCJ_FWJG_JBXX JBXX
+			LEFT JOIN 
+				HB_SJCJ_FWJG_JCJG JCJG 
+			ON 
+				JBXX.JBXX_ID = JCJG.JBXX_ID
+			LEFT JOIN 
+				T_ADMIN_RMS_YH YH 
+			ON 
+				JBXX.USERDLMC = YH.XTZH
+		<where>
+			JBXX.JBXX_SFYX = '1'
+			<if test="JBXX_NAME != null and JBXX_NAME != ''">
+				AND JBXX.JBXX_NAME LIKE #{JBXX_NAME}
+			</if>
+			<if test="JBXX_SHENG != null and JBXX_SHENG != ''">
+				AND JBXX.JBXX_SHENG = #{JBXX_SHENG}
+			</if>
+			<if test="JBXX_SHI != null and JBXX_SHI != ''">
+				AND JBXX.JBXX_SHI = #{JBXX_SHI}
+			</if>
+			<if test="JBXX_XIAN != null and JBXX_XIAN != ''">
+				AND JBXX.JBXX_XIAN = #{JBXX_XIAN}
+			</if>
+			<if test="JBXX_JCJG != null and JBXX_JCJG != ''">
+				AND JBXX.JBXX_JCJG = #{JBXX_JCJG}
+			</if>
+			<if test="JBXX_YYJG != null and JBXX_YYJG != ''">
+				AND JBXX.JBXX_YYJG = #{JBXX_YYJG}
+			</if>
+			<if test="JBXX_JCSB != null and JBXX_JCSB != ''">
+				AND JBXX.JBXX_JCSB = #{JBXX_JCSB}
+			</if>
+			<if test="JBXX_JCS != null and JBXX_JCS != ''">
+				AND JBXX.JBXX_JCS = #{JBXX_JCS}
+			</if>
+		</where>
+		ORDER BY
+			JBXX.JBXX_ID
+	</select>
+	
+	<!-- 根据ID获取服务机构 -->
+	<select id="getServiceOrganizationById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			JBXX.JBXX_ID,
+			JBXX.JBXX_NAME,
+			JBXX.JBXX_GSCLSJ,
+			JBXX.JBXX_SFYSJGS,
+			JBXX.JBXX_FDDBR,
+			JBXX.JBXX_JSRYS,
+			JBXX.JBXX_LXR,
+			JBXX.JBXX_CZHM,
+			JBXX.JBXX_QYFRDM,
+			JBXX.JBXX_SHFWM,
+			JBXX.JBXX_DWJJ,
+			JBXX.JBXX_QYYYZZ,
+			JBXX.JBXX_ZCZJ,
+			JBXX.JBXX_GSSZD,
+			JBXX.JBXX_JGDZ,
+			JBXX.JBXX_LXDH,
+			JBXX.JBXX_DZYX,
+			JBXX.JBXX_BGDH,
+			JBXX.JBXX_QYYZBM,
+			JBXX.JBXX_SHZT,
+			JBXX.JBXX_SFYX,
+			JBXX.JBXX_JCJG,
+			JBXX.JBXX_YYJG,
+			JBXX.JBXX_JCSB,
+			JBXX.JBXX_JCS,
+			JBXX.JBXX_SHENG,
+			JBXX.JBXX_SHI,
+			JBXX.JBXX_XIAN,
+			JBXX.USERDLMC,
+			JBXX.SJGSMC,
+			JBXX.HB_SHENG,
+			JBXX.JBXX_JGZT,
+			JBXX.JBXX_WTXQ,
+			JBXX.JBXX_SFCZWT,
+			JCJG.JCJG_SFBA,
+			JCJG.JCJG_BAH
+		FROM
+			HB_SJCJ_FWJG_JBXX JBXX
+			LEFT JOIN 
+				HB_SJCJ_FWJG_JCJG JCJG 
+			ON 
+				JBXX.JBXX_ID = JCJG.JBXX_ID
+		WHERE
+			JBXX.JBXX_SFYX = '1'
+			AND JBXX.JBXX_ID = #{JBXX_ID}
+	</select>
+	
+	<!-- 根据登录账号获取服务机构 -->
+	<select id="getServiceOrganizationByAccount" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			JBXX.JBXX_ID,
+			JBXX.JBXX_NAME,
+			JBXX.JBXX_GSCLSJ,
+			JBXX.JBXX_SFYSJGS,
+			JBXX.JBXX_FDDBR,
+			JBXX.JBXX_JSRYS,
+			JBXX.JBXX_LXR,
+			JBXX.JBXX_CZHM,
+			JBXX.JBXX_QYFRDM,
+			JBXX.JBXX_SHFWM,
+			JBXX.JBXX_DWJJ,
+			JBXX.JBXX_QYYYZZ,
+			JBXX.JBXX_ZCZJ,
+			JBXX.JBXX_GSSZD,
+			JBXX.JBXX_JGDZ,
+			JBXX.JBXX_LXDH,
+			JBXX.JBXX_DZYX,
+			JBXX.JBXX_BGDH,
+			JBXX.JBXX_QYYZBM,
+			JBXX.JBXX_SHZT,
+			JBXX.JBXX_SFYX,
+			JBXX.JBXX_JCJG,
+			JBXX.JBXX_YYJG,
+			JBXX.JBXX_JCSB,
+			JBXX.JBXX_JCS,
+			JBXX.JBXX_SHENG,
+			JBXX.JBXX_SHI,
+			JBXX.JBXX_XIAN,
+			JBXX.USERDLMC,
+			JBXX.SJGSMC,
+			JBXX.HB_SHENG,
+			JBXX.JBXX_JGZT,
+			JBXX.JBXX_WTXQ,
+			JBXX.JBXX_SFCZWT,
+			JCJG.JCJG_SFBA,
+			JCJG.JCJG_BAH
+		FROM
+			HB_SJCJ_FWJG_JBXX JBXX
+			LEFT JOIN 
+				HB_SJCJ_FWJG_JCJG JCJG 
+			ON 
+				JBXX.JBXX_ID = JCJG.JBXX_ID
+		WHERE
+			JBXX.JBXX_SFYX = '1'
+			AND JBXX.USERDLMC = #{USERDLMC}
+	</select>
+	
+	<!-- 根据服务机构ID查询备案 -->
+	<select id="getRecordByOrgId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			JCJG_ID,
+			JCJG_SFBA,
+			JCJG_BAH,
+			JBXX_ID
+		FROM
+			HB_SJCJ_FWJG_JCJG
+		WHERE
+			JBXX_ID = #{JBXX_ID}
+	</select>
+	
+	<!-- 根据服务机构ID查询监测项目范围 -->
+	<select id="findProjectScopeByOrgId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			ID,
+			JCFW,
+			JCXM,
+			JBXX_ID
+		FROM
+			HB_SJCJ_FWJG_JGXX_JCXMFW
+		WHERE
+			JBXX_ID = #{JBXX_ID}
+	</select>
+	
+	<!-- 根据服务机构ID查询资质证书 -->
+	<select id="findCertificateByOrgId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			WTJGZS_ID,
+			WTJGZS_ZSBH,
+			WTJGZS_ZSMC,
+			WTJGZS_ZSURL,
+			WTJGZS_ZSKSSJ,
+			WTJGZS_ZSJSSJ,
+			WTJGZS_JCJGBH,
+			JBXX_ID
+		FROM
+			HB_SJCJ_FWJG_JGXX_ZZZS
+		WHERE
+			JBXX_ID = #{JBXX_ID}
+	</select>
+	
+	<!-- 添加服务机构 -->
+	<insert id="addServiceOrganization" parameterType="java.util.Map">
+		INSERT INTO HB_SJCJ_FWJG_JBXX 
+		(
+			JBXX_ID,
+			JBXX_NAME,
+			JBXX_GSCLSJ,
+			JBXX_SFYSJGS,
+			JBXX_FDDBR,
+			JBXX_JSRYS,
+			JBXX_LXR,
+			JBXX_CZHM,
+			JBXX_QYFRDM,
+			JBXX_SHFWM,
+			JBXX_DWJJ,
+			JBXX_QYYYZZ,
+			JBXX_ZCZJ,
+			JBXX_GSSZD,
+			JBXX_JGDZ,
+			JBXX_LXDH,
+			JBXX_DZYX,
+			JBXX_BGDH,
+			JBXX_QYYZBM,
+			JBXX_SHZT,
+			JBXX_SFYX,
+			JBXX_JCJG,
+			JBXX_YYJG,
+			JBXX_JCSB,
+			JBXX_JCS,
+			JBXX_SHENG,
+			JBXX_SHI,
+			JBXX_XIAN,
+			USERDLMC,
+			SJGSMC,
+			HB_SHENG,
+			JBXX_JGZT,
+			JBXX_WTXQ,
+			JBXX_SFCZWT
+		)
+		VALUES
+		(
+			#{JBXX_ID},
+			#{JBXX_NAME},
+			#{JBXX_GSCLSJ},
+			#{JBXX_SFYSJGS},
+			#{JBXX_FDDBR},
+			#{JBXX_JSRYS},
+			#{JBXX_LXR},
+			#{JBXX_CZHM},
+			#{JBXX_QYFRDM},
+			#{JBXX_SHFWM},
+			#{JBXX_DWJJ},
+			#{JBXX_QYYYZZ},
+			#{JBXX_ZCZJ},
+			#{JBXX_GSSZD},
+			#{JBXX_JGDZ},
+			#{JBXX_LXDH},
+			#{JBXX_DZYX},
+			#{JBXX_BGDH},
+			#{JBXX_QYYZBM},
+			#{JBXX_SHZT},
+			#{JBXX_SFYX},
+			#{JBXX_JCJG},
+			#{JBXX_YYJG},
+			#{JBXX_JCSB},
+			#{JBXX_JCS},
+			#{JBXX_SHENG},
+			#{JBXX_SHI},
+			#{JBXX_XIAN},
+			#{USERDLMC},
+			#{SJGSMC},
+			#{HB_SHENG},
+			#{JBXX_JGZT},
+			#{JBXX_WTXQ},
+			#{JBXX_SFCZWT}
+		)
+	</insert>
+	
+	<!-- 添加备案 -->
+	<insert id="addRecord" parameterType="java.util.Map">
+		INSERT INTO HB_SJCJ_FWJG_JCJG 
+		(
+			JCJG_ID,
+			JCJG_SFBA,
+			JCJG_BAH,
+			JBXX_ID
+		)
+		VALUES
+		(
+			#{JCJG_ID},
+			#{JCJG_SFBA},
+			#{JCJG_BAH},
+			#{JBXX_ID}
+		)
+	</insert>
+	
+	<!-- 批量添加监测项目范围 -->
+	<insert id="addProjectScopeBatch" parameterType="java.util.Map">
+		INSERT INTO HB_SJCJ_FWJG_JGXX_JCXMFW
+		(
+			ID,
+			JCFW,
+			JCXM,
+			JBXX_ID
+		)
+		<foreach collection="projectScopes" item="projectScope" separator="UNION ALL">
+			SELECT
+				#{projectScope.ID},
+				#{projectScope.JCFW},
+				#{projectScope.JCXM},
+				#{JBXX_ID}
+		</foreach>
+	</insert>
+	
+	<!-- 批量添加资质证书 -->
+	<insert id="addCertificateBatch" parameterType="java.util.Map">
+		INSERT INTO HB_SJCJ_FWJG_JGXX_ZZZS 
+		(
+			WTJGZS_ID,
+			WTJGZS_ZSBH,
+			WTJGZS_ZSMC,
+			WTJGZS_ZSURL,
+			WTJGZS_ZSKSSJ,
+			WTJGZS_ZSJSSJ,
+			WTJGZS_JCJGBH,
+			JBXX_ID
+		)
+		<foreach collection="certificates" item="certificate" separator="UNION ALL">
+			SELECT
+				#{certificate.WTJGZS_ID},
+				#{certificate.WTJGZS_ZSBH},
+				#{certificate.WTJGZS_ZSMC},
+				#{certificate.WTJGZS_ZSURL},
+				#{certificate.WTJGZS_ZSKSSJ},
+				#{certificate.WTJGZS_ZSJSSJ},
+				#{certificate.WTJGZS_JCJGBH},
+				#{JBXX_ID}
+		</foreach>
+	</insert>
+	
+	<!-- 更新服务机构 -->
+	<update id="updateServiceOrganization" parameterType="java.util.Map">
+		UPDATE 
+			HB_SJCJ_FWJG_JBXX
+		<set>
+			<if test="JBXX_NAME != null">
+				JBXX_NAME = #{JBXX_NAME},
+			</if>
+			<if test="JBXX_GSCLSJ != null">
+				JBXX_GSCLSJ = #{JBXX_GSCLSJ},
+			</if>
+			<if test="JBXX_SFYSJGS != null">
+				JBXX_SFYSJGS = #{JBXX_SFYSJGS},
+			</if>
+			<if test="JBXX_FDDBR != null">
+				JBXX_FDDBR = #{JBXX_FDDBR},
+			</if>
+			<if test="JBXX_JSRYS != null">
+				JBXX_JSRYS = #{JBXX_JSRYS},
+			</if>
+			<if test="JBXX_LXR != null">
+				JBXX_LXR = #{JBXX_LXR},
+			</if>
+			<if test="JBXX_CZHM != null">
+				JBXX_CZHM = #{JBXX_CZHM},
+			</if>
+			<if test="JBXX_QYFRDM != null">
+				JBXX_QYFRDM = #{JBXX_QYFRDM},
+			</if>
+			<if test="JBXX_SHFWM != null">
+				JBXX_SHFWM = #{JBXX_SHFWM},
+			</if>
+			<if test="JBXX_DWJJ != null">
+				JBXX_DWJJ = #{JBXX_DWJJ},
+			</if>
+			<if test="JBXX_QYYYZZ != null">
+				JBXX_QYYYZZ = #{JBXX_QYYYZZ},
+			</if>
+			<if test="JBXX_ZCZJ != null">
+				JBXX_ZCZJ = #{JBXX_ZCZJ},
+			</if>
+			<if test="JBXX_GSSZD != null">
+				JBXX_GSSZD = #{JBXX_GSSZD},
+			</if>
+			<if test="JBXX_JGDZ != null">
+				JBXX_JGDZ = #{JBXX_JGDZ},
+			</if>
+			<if test="JBXX_LXDH != null">
+				JBXX_LXDH = #{JBXX_LXDH},
+			</if>
+			<if test="JBXX_DZYX != null">
+				JBXX_DZYX = #{JBXX_DZYX},
+			</if>
+			<if test="JBXX_BGDH != null">
+				JBXX_BGDH = #{JBXX_BGDH},
+			</if>
+			<if test="JBXX_QYYZBM != null">
+				JBXX_QYYZBM = #{JBXX_QYYZBM},
+			</if>
+			<if test="JBXX_SHZT != null">
+				JBXX_SHZT = #{JBXX_SHZT},
+			</if>
+			<if test="JBXX_SFYX != null">
+				JBXX_SFYX = #{JBXX_SFYX},
+			</if>
+			<if test="JBXX_JCJG != null">
+				JBXX_JCJG = #{JBXX_JCJG},
+			</if>
+			<if test="JBXX_YYJG != null">
+				JBXX_YYJG = #{JBXX_YYJG},
+			</if>
+			<if test="JBXX_JCSB != null">
+				JBXX_JCSB = #{JBXX_JCSB},
+			</if>
+			<if test="JBXX_JCS != null">
+				JBXX_JCS = #{JBXX_JCS},
+			</if>
+			<if test="JBXX_SHENG != null">
+				JBXX_SHENG = #{JBXX_SHENG},
+			</if>
+			<if test="JBXX_SHI != null">
+				JBXX_SHI = #{JBXX_SHI},
+			</if>
+			<if test="JBXX_XIAN != null">
+				JBXX_XIAN = #{JBXX_XIAN},
+			</if>
+			<if test="USERDLMC != null">
+				USERDLMC = #{USERDLMC},
+			</if>
+			<if test="SJGSMC != null">
+				SJGSMC = #{SJGSMC},
+			</if>
+			<if test="HB_SHENG != null">
+				HB_SHENG = #{HB_SHENG},
+			</if>
+			<if test="JBXX_JGZT != null">
+				JBXX_JGZT = #{JBXX_JGZT},
+			</if>
+			<if test="JBXX_WTXQ != null">
+				JBXX_WTXQ = #{JBXX_WTXQ},
+			</if>
+			<if test="JBXX_SFCZWT != null">
+				JBXX_SFCZWT = #{JBXX_SFCZWT}
+			</if>
+		</set>
+		WHERE 
+			JBXX_ID = #{JBXX_ID}
+	</update>
+	
+	<!-- 根据服务机构ID更新备案 -->
+	<update id="updateRecordByOrgId" parameterType="java.util.Map">
+		UPDATE 
+			HB_SJCJ_FWJG_JCJG
+		SET 
+			JCJG_SFBA = #{JCJG_SFBA},
+			JCJG_BAH = #{JCJG_BAH}
+		WHERE
+			JBXX_ID = #{JBXX_ID}
+	</update>
+	
+	<!-- 根据服务机构ID删除备案 -->
+	<delete id="delRecordByOrgId" parameterType="java.lang.String">
+		DELETE FROM 
+			HB_SJCJ_FWJG_JCJG
+		WHERE 
+			JBXX_ID = #{JBXX_ID}
+	</delete>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.businessmanagement.organization.orgdept.dao.OrgDeptDAO">
+	<!-- 查询监测机构部门 -->
+	<select id="findOrgDept" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			BMGL.JCJGBM_ID,
+			BMGL.JCJGBM_BMMC,
+			BMGL.JCJGBM_RYID,
+			BMGL.JCJGBM_BMLXR,
+			BMGL.JCJGBM_BMLXRDH,
+			BMGL.JCJGBM_BMJJ,
+			BMGL.JCJGBM_JGBH
+		FROM
+			HB_YWGL_JCJG_BMGL BMGL,
+			HB_YWGL_JCJG_JGGL JGGL
+		WHERE
+			BMGL.JCJGBM_JGBH = JGGL.JCJG_ID
+			AND JCJG_SHENG = #{JCJG_SHENG}
+			AND JCJG_SHI = #{JCJG_SHI}
+			AND JCJG_XIAN = #{JCJG_XIAN}
+			<if test="JCJGBM_BMMC != null and JCJGBM_BMMC != ''">
+				AND BMGL.JCJGBM_BMMC LIKE #{JCJGBM_BMMC}
+			</if>
+			<if test="JCJGBM_BMLXR != null and JCJGBM_BMLXR != ''">
+				AND BMGL.JCJGBM_BMLXR LIKE #{JCJGBM_BMLXR}
+			</if>
+			<if test="JCJGBM_BMLXRDH != null and JCJGBM_BMLXRDH != ''">
+				AND BMGL.JCJGBM_BMLXRDH LIKE #{JCJGBM_BMLXRDH}
+			</if>
+		ORDER BY
+			BMGL.JCJGBM_ID
+	</select>
+	
+	<!-- 根据ID查询监测机构部门 -->
+	<select id="getOrgDeptById" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			BMGL.JCJGBM_ID,
+			BMGL.JCJGBM_BMMC,
+			BMGL.JCJGBM_RYID,
+			BMGL.JCJGBM_BMLXR,
+			BMGL.JCJGBM_BMLXRDH,
+			BMGL.JCJGBM_BMJJ,
+			BMGL.JCJGBM_JGBH
+		FROM
+			HB_YWGL_JCJG_BMGL BMGL
+		WHERE 
+			BMGL.JCJGBM_ID = #{JCJGBM_ID}
+	</select>
+	
+	<!-- 添加监测机构部门 -->
+	<insert id="addOrgDept" parameterType="java.util.Map">
+		INSERT INTO HB_YWGL_JCJG_BMGL 
+		(
+			JCJGBM_ID,
+			JCJGBM_BMMC,
+			JCJGBM_RYID,
+			JCJGBM_BMLXR,
+			JCJGBM_BMLXRDH,
+			JCJGBM_BMJJ,
+			JCJGBM_JGBH
+		)
+		VALUES
+		(
+			#{JCJGBM_ID},
+			#{JCJGBM_BMMC},
+			#{JCJGBM_RYID},
+			#{JCJGBM_BMLXR},
+			#{JCJGBM_BMLXRDH},
+			#{JCJGBM_BMJJ},
+			#{JCJGBM_JGBH}
+		)
+	</insert>
+	
+	<!-- 更新监测机构部门 -->
+	<update id="updateOrgDept" parameterType="java.util.Map">
+		UPDATE HB_YWGL_JCJG_BMGL
+		SET
+			<if test="JCJGBM_BMMC != null">
+				JCJGBM_BMMC = #{JCJGBM_BMMC},
+			</if>
+			<if test="JCJGBM_RYID != null">
+				JCJGBM_RYID = #{JCJGBM_RYID},
+			</if>
+			<if test="JCJGBM_BMLXR != null">
+				JCJGBM_BMLXR = #{JCJGBM_BMLXR},
+			</if>
+			<if test="JCJGBM_BMLXRDH != null">
+				JCJGBM_BMLXRDH = #{JCJGBM_BMLXRDH},
+			</if>
+			<if test="JCJGBM_BMJJ != null">
+				JCJGBM_BMJJ = #{JCJGBM_BMJJ},
+			</if>
+			<if test="JCJGBM_JGBH != null">
+				JCJGBM_JGBH = #{JCJGBM_JGBH}
+			</if>
+		WHERE
+			JCJGBM_ID = #{JCJGBM_ID}
+	</update>
+	
+	<!-- 删除监测机构部门 -->
+	<delete id="delOrgDept" parameterType="java.lang.String">
+		DELETE FROM 
+			HB_YWGL_JCJG_BMGL
+		WHERE 
+			JCJGBM_ID = #{JCJGBM_ID}
+	</delete>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.dataacquisition.schememanage.dao.SchemeManageDAO">
+	<select id="findSchemeManage" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			V_ID id,
+			FAMC famc,
+			VERSION bb,
+			jbxx.QYMC qymc,
+			jcxx.CJSJ cjsj,
+			jcxx.FAKSSJ fakssj,
+			jcxx.ZT zt
+		FROM
+			HB_SJCJ_QY_JCXX jcxx
+		LEFT JOIN HB_SJCJ_QY_JBXX jbxx ON jcxx.QYBH = jbxx.id
+		<where>
+			<if test="famc!=null and famc!=''">
+				jcxx.FAMC LIKE #{famc}
+			</if>
+			<if test="zt!=null and zt!=''">
+				AND jcxx.ZT = #{zt}
+			</if>
+			<if test="bb!=null and bb!=''">
+				AND jcxx.VERSION LIKE #{bb}
+			</if>
+			<if test="cjsj!=null and cjsj!=''">
+				AND jcxx.CJSJ = #{cjsj}
+			</if>
+		</where>
+		ORDER BY jcxx.CJSJ DESC
+	</select>
+	
+	<!-- 删除案例信息库 -->
+	<delete id="delSchemeManage" parameterType="java.util.Map">
+		DELETE FROM HB_SJCJ_QY_JCXX
+			WHERE 
+		V_ID IN
+		<foreach collection="ids" item="id" open="(" close=")"
+			separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 修改案例信息库 -->
+	<update id="updateSchemeManage" parameterType="java.util.Map">
+		UPDATE HB_SJCJ_QY_JCXX
+			SET 
+		WHERE V_ID = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szboanda.epsm.businessmanagement.entrust.dao.EntrustDAO">
+	<select id="findEntrust" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			COUNT (JBXX_ID) sl,
+			SUM (CONVERT(INT, JBXX_JSRYS)) zs,
+			YEAR(jbxx.JBXX_GSCLSJ) nian
+		FROM
+			HB_SJCJ_FWJG_JBXX jbxx
+		<where>
+			jbxx.JBXX_SFYX = 1
+			<if test="type!=null and type==1">
+				AND jbxx.JBXX_JCJG != 0
+			</if>
+			<if test="type!=null and type==2">
+				AND jbxx.JBXX_YYJG != 0
+			</if>
+			<if test="type!=null and type==3">
+				AND jbxx.JBXX_JCSB != 0
+			</if>
+			<if test="type!=null and type==4">
+				AND jbxx.JBXX_JCS != 0
+			</if>
+			<if test="sheng!=null and sheng!=''">
+				AND jbxx.JBXX_SHENG = #{sheng}
+			</if>
+			<if test="shi!=null and shi!=''">
+				AND jbxx.JBXX_SHI = #{shi}
+			</if>
+			<if test="xian!=null and xian!=''">
+				AND jbxx.JBXX_XIAN = #{xian}
+			</if>
+			<if test="startTime!=null and startTime!=''">
+				<![CDATA[AND YEAR(jbxx.JBXX_GSCLSJ) >= #{startTime}]]>
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				<![CDATA[AND YEAR(jbxx.JBXX_GSCLSJ) <= #{endTime}]]>
+			</if>
+		</where>
+		GROUP BY
+			YEAR(jbxx.JBXX_GSCLSJ)
+		<if test="sheng!=null and sheng!=''">
+			,jbxx.JBXX_SHENG
+		</if>
+		<if test="shi!=null and shi!=''">
+			,jbxx.JBXX_SHI
+		</if>
+		<if test="xian!=null and xian!=''">
+			,jbxx.JBXX_XIAN
+		</if>
+		ORDER BY YEAR(jbxx.JBXX_GSCLSJ) DESC
+	</select>
+	
+	<select id="findDivision" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT XZQH xzqh FROM T_PLATFORM_XZQHDM WHERE XZQHDM=#{xzqhdm}
+	</select>
+</mapper>

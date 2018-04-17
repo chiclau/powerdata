@@ -1,0 +1,97 @@
+<!DOCTYPE html>   
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>document</title>
+<link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body style="background-color: #f1f4f8;">
+	<div class="dlg-box">
+		<div class="dlg-con">
+			<div class="dlg-con-lf">
+				<div class="panel-title">
+					<span>模板列表</span>
+				</div>
+				<ul id="templateLists" class="modu-list scroll-content">
+				</ul>
+			</div>
+			<div class="dlg-con-mid">
+				<div class="panel-tit">
+					<span class="mid-panel-tit">测点列表</span>
+					<div class="srh-area">
+						<div class="radio-box">
+
+						</div>
+						<div class="srh-wrap">
+							<input type="text" id="search-input" onchange="dataSelect.searchChangeEvent()" class="srh" placeholder="请输入名称搜索" value="">
+							<i class="srh_icon"></i>
+						</div>
+					</div>	
+				</div>
+				<div class="city-content  scroll-content">
+					<div class="city city00">
+						<div class="city-name"></div>
+						<div class="cities">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dlg-con-rt">
+				<div class="panel-title">
+					<span>已选测点(<b class="allSelectedDataLength"></b>)</span>
+					<i id="clearAllData">全部清除</i>
+				</div>
+				<div class="addr-list-scroll-div scroll-content">
+					<ul class="addr-list">
+					</ul>
+				</div>
+				<div class="conf-wrap">
+					<div class="conf-btn" onclick="dataSelect.confirmSelect()">确定</div>
+					<div class="edit" style="display: none">
+						<span class="editSpan">编辑模板</span>
+					</div>
+
+					<div class="save">
+						<span class="saveSpan">另存为模板</span>
+						<div class="saveBox" style="display: none;">
+							<input class="modInp" type="text" placeholder="请输入模板名称" value="">
+							<div class="radio-box">
+								<span class="radioBox">
+									<span class="radio-icon on"></span>
+									<input type="radio" name="isPublic" checked="checked" value="true" style="display:none;" />
+									<span>公有模板</span>
+								</span>
+								<span class="radioBox">
+									<span class="radio-icon"></span>
+									<input type="radio" name="isPublic" value="false" style="display:none;" />
+									<span>私有模板</span>
+								</span>
+							</div>
+							<div class="cancel">取消</div>
+							<div class="confirm" onclick="dataSelect.confirmAddNewTemplate()">确定</div>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>
+		<div class="modEdit" style="display: none;">
+			<div class="modName">
+				<label>模板名称：</label>
+				<input id="currentTemplateName" class="modInp" type="text" value="">
+			</div>
+			<div class="modEditBtn">
+				<span class="editBtn01" onclick="dataSelect.confirmEditTemplate()">确定</span>
+				<span class="editBtn02">取消</span>
+				<span class="editBtn03" onclick="dataSelect.deleteTemplate()">删除模板</span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="script/layer/layer.js"></script>
+	<script src="script/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="script/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+/********************查询列表******************************/
+
+body{
+	background-color: #eef3f8;
+	margin-top: 0.5rem;
+}
+.dbrw-green{
+	color: #59bf3e;
+}
+.dbrw-red{
+	color: #ff5e5e;
+}
+.dbrw-orange{
+	color: #ff8e29;
+}
+.ui-grid-cell-contents{
+	padding-left: 10px;
+}
+.ui-grid-header-cell{
+	padding-left: 10px;
+}
+.table-cell{
+	display: table-cell;
+}
+
+.power-normal-select{
+	width: 300px;
+} 
+
